@@ -1,7 +1,18 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Kitchen Items</h1>
+<h2 class="ui header">
+  Kitchen Items
+  <div class="sub header">Add raw items</div>
+</h2>
 
+<% if @kitchen_items.empty? %>
+  <div class="ui placeholder segment">
+    <div class="ui icon header">
+      <i aria-hidden="true" class="list icon"></i>No items have been added.
+    </div>
+    <%= form_new_button new_kitchen_item_path, "New Kitchen Item" %>
+  </div>
+<% else %>
 <table class="ui celled definition compact table">
   <thead>
     <tr>
@@ -25,8 +36,9 @@
   <tfoot class="full-width">
   <tr>
     <th colspan="2">
-      <%= form_new_button new_inventory_item_path, "New Kitchen Item" %>
+      <%= form_new_button new_kitchen_item_path, "New Kitchen Item" %>
     </th>
   </tr>
   </tfoot>
 </table>
+<% end %>

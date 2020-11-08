@@ -1,7 +1,8 @@
 <%= form_with(model: inventory_item, local: true) do |form| %>
   <% if inventory_item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(inventory_item.errors.count, "error") %> prohibited this inventory_item from being saved:</h2>
+      <h2><%= pluralize(inventory_item.errors.count, "error") %> prohibited this inventory_item from
+        being saved:</h2>
 
       <ul>
         <% inventory_item.errors.full_messages.each do |message| %>
@@ -13,7 +14,7 @@
 
   <div class="field">
     <%= form.label :kitchen_item_id %>
-    <%= form.text_field :kitchen_item_id %>
+    <%= form.select :kitchen_item_id, options_from_collection_for_select(KitchenItem.all, :id, :name), required: true, prompt: "Select an item"%>
   </div>
 
   <div class="field">
@@ -22,18 +23,17 @@
   </div>
 
   <div class="field">
-    <%= form.label :quantity %>
+    <%= form.label :quantity_per_item %>
     <%= form.text_field :quantity %>
   </div>
 
   <div class="field">
-    <%= form.label :price %>
-    <%= form.text_field :price %>
+    <%= form.select :quantity_scale, quantity_scale_options %>
   </div>
 
   <div class="field">
-    <%= form.label :quantity_scale %>
-    <%= form.text_field :quantity_scale %>
+    <%= form.label :total_price, for: :inventory_item_price %>
+    <%= form.text_field :price %>
   </div>
 
   <div class="actions">
