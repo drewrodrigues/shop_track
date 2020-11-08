@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Kitchen Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kitchen_items.each do |kitchen_item| %>
+      <tr>
+        <td><%= kitchen_item.name %></td>
+        <td><%= link_to 'Show', kitchen_item %></td>
+        <td><%= link_to 'Edit', edit_kitchen_item_path(kitchen_item) %></td>
+        <td><%= link_to 'Destroy', kitchen_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Kitchen Item', new_kitchen_item_path %>

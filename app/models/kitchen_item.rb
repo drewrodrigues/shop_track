@@ -1,0 +1,2 @@
+class KitchenItem < ApplicationRecord
+end
