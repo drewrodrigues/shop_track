@@ -47,10 +47,7 @@
     <tfoot class="full-width">
     <tr>
       <th colspan="7">
-        <%= link_to new_inventory_item_path, class: 'ui small icon primary right floated left labeled button' do %>
-          <i aria-hidden="true" class="plus icon"></i>
-          New Inventory Item
-        <% end %>
+        <%= form_new_button new_inventory_item_path, "New Inventory Item" %>
       </th>
     </tr>
     </tfoot>

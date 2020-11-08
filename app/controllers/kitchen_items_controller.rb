@@ -4,7 +4,7 @@ class KitchenItemsController < ApplicationController
   # GET /kitchen_items
   # GET /kitchen_items.json
   def index
-    @kitchen_items = KitchenItem.all
+    @kitchen_items = KitchenItem.order("name asc").all
   end
 
   # GET /kitchen_items/1
