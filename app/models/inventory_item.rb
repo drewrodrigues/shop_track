@@ -6,4 +6,8 @@ class InventoryItem < ApplicationRecord
   def cost_per_item
     price / count
   end
+
+  def cost_per_measurement
+    cost_per_item / quantity
+  end
 end
