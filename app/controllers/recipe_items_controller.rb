@@ -1,6 +1,6 @@
 class RecipeItemsController < ApplicationController
   before_action :set_recipe_item, only: [:show, :edit, :update, :destroy]
-  before_action :set_recipe, only: [:new]
+  before_action :set_recipe, only: [:new, :edit]
 
   # GET /recipe_items
   # GET /recipe_items.json

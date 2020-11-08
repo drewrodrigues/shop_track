@@ -14,6 +14,29 @@
  *= require_self
  */
 
+a:hover {
+  background: none;
+}
+
+.recipe__item {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.recipe__item main {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.recipe__item img {
+  height: 100px !important;
+  width: 100px !important;
+  margin-right: 30px !important;
+}
+
 .ui.horizontal.divider {
   margin: 20px 0;
   padding: 50px 0;

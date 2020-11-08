@@ -1,27 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Recipes</h1>
+<div role="list" class="ui middle aligned list">
+  <% @recipes.each do |recipe| %>
+      <div role="listitem" class="item recipe__item">
+        <main>
+          <%= image_tag recipe.photo, class: 'ui avatar image' %>
+          <%= link_to recipe.name, url_for(recipe), class: 'header' %>
+        </main>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @recipes.each do |recipe| %>
-      <tr>
-        <td><%= recipe.name %></td>
-        <td><%= link_to 'Show', recipe %></td>
-        <td><%= link_to 'Edit', edit_recipe_path(recipe) %></td>
-        <td><%= link_to 'Destroy', recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
+        <aside>
+          <td><%= link_to 'Edit', edit_recipe_path(recipe), class: 'ui button' %></td>
+          <td><%= link_to 'Destroy', recipe, method: :delete, data: {confirm: 'Are you sure?'}, class: 'ui button' %></td>
+        </aside>
+      </div>
+  <% end %>
+</div>
 
 <%= link_to 'New Recipe', new_recipe_path %>
