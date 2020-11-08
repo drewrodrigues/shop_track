@@ -28,7 +28,61 @@
   </tbody>
 </table>
 
-<%= form_new_button new_recipe_recipe_item_path(@recipe), "New Recipe Item" %>
+<div class="ui mini statistics">
+  <div class="ui statistic">
+    <div class="value">
+      <i aria-hidden="true" class="gulp icon"></i>
+      <%= @total_quantity %> <%= @recipe.recipe_items[0]&.quantity_scale %>
+    </div>
+    <div class="label">
+      Total Volume
+    </div>
+  </div>
 
-<%= link_to 'Edit', edit_recipe_path(@recipe) %> |
-<%= link_to 'Back', recipes_path %>
+  <div class="ui statistic">
+
+    <div class="value">
+      <i aria-hidden="true" class="angle double down icon"></i>
+      <%= @total_cost %>
+    </div>
+    <div class="label">Total Cost</div>
+  </div>
+
+  <% if @recipe.sale_price %>
+    <div class="ui statistic">
+      <div class="value">
+        <i aria-hidden="true" class="money bill alternate outline icon"></i>
+        <%= @recipe.sale_price %>
+      </div>
+      <div class="label">Sale Price</div>
+    </div>
+
+    <div class="ui statistic">
+      <div class="value">
+        <i aria-hidden="true" class="angle double up icon"></i>
+        <%= @recipe.sale_price - @total_cost %>
+      </div>
+      <div class="label">Profit</div>
+    </div>
+
+    <div class="ui statistic">
+      <div class="value"><%= (@recipe.sale_price - @total_cost) / @recipe.sale_price * 100 %>%</div>
+      <div class="label">Margin</div>
+    </div>
+
+    <div class="ui statistic">
+      <div class="value">
+        <i aria-hidden="true" class="users icon"></i>
+        ?
+      </div>
+      <div class="label">Unit Sales</div>
+    </div>
+  <% end %>
+</div>
+
+<footer class="ui footer">
+  <%= form_new_button new_recipe_recipe_item_path(@recipe), "New Recipe Item" %>
+
+  <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
+  <%= link_to 'Back', recipes_path %>
+</footer>

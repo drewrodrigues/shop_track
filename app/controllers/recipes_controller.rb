@@ -11,6 +11,13 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @recipe_items = @recipe.recipe_items
+    @total_cost = 0
+    @total_quantity = 0
+
+    @recipe_items.each do |recipe_item|
+      @total_cost += recipe_item.cost
+      @total_quantity += recipe_item.quantity
+    end
   end
 
   # GET /recipes/new
@@ -70,6 +77,6 @@ class RecipesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def recipe_params
-      params.require(:recipe).permit(:name)
+      params.require(:recipe).permit(:name, :sale_price)
     end
 end
