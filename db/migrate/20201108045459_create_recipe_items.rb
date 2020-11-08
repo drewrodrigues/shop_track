@@ -4,6 +4,7 @@ class CreateRecipeItems < ActiveRecord::Migration[6.0]
       t.belongs_to :inventory_item, null: false, foreign_key: true
       t.float :quantity
       t.string :quantity_scale
+      t.references :recipe, null: false, foreign_key: true
 
       t.timestamps
     end

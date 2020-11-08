@@ -1,4 +1,4 @@
-<%= form_with(model: recipe_item, local: true) do |form| %>
+<%= form_for [@recipe, @recipe_item] do |form| %>
   <% if recipe_item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(recipe_item.errors.count, "error") %> prohibited this recipe_item from being saved:</h2>
@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :inventory_item_id %>
-    <%= form.text_field :inventory_item_id %>
+    <%= form.select :inventory_item_id, options_for_inventory_item_and_kitchen_item %>
   </div>
 
   <div class="field">
@@ -23,8 +23,11 @@
 
   <div class="field">
     <%= form.label :quantity_scale %>
-    <%= form.text_field :quantity_scale %>
+    <%= form.select :quantity_scale, quantity_scale_options %>
   </div>
+
+
+  <%= form.hidden_field :recipe_id, value: @recipe.id %>
 
   <div class="actions">
     <%= form.submit %>

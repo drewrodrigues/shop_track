@@ -1,5 +1,6 @@
 class RecipeItemsController < ApplicationController
   before_action :set_recipe_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_recipe, only: [:new]
 
   # GET /recipe_items
   # GET /recipe_items.json
@@ -28,7 +29,7 @@ class RecipeItemsController < ApplicationController
 
     respond_to do |format|
       if @recipe_item.save
-        format.html { redirect_to @recipe_item, notice: 'Recipe item was successfully created.' }
+        format.html { redirect_to [@recipe_item.recipe, @recipe_item], notice: 'Recipe item was successfully created.' }
         format.json { render :show, status: :created, location: @recipe_item }
       else
         format.html { render :new }
@@ -56,19 +57,24 @@ class RecipeItemsController < ApplicationController
   def destroy
     @recipe_item.destroy
     respond_to do |format|
-      format.html { redirect_to recipe_items_url, notice: 'Recipe item was successfully destroyed.' }
+      format.html { redirect_to @recipe_item.recipe, notice: 'Recipe item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_recipe_item
-      @recipe_item = RecipeItem.find(params[:id])
-    end
+  def set_recipe_item
+    @recipe_item = RecipeItem.find(params[:id])
+  end
 
     # Only allow a list of trusted parameters through.
-    def recipe_item_params
-      params.require(:recipe_item).permit(:inventory_item_id, :quantity, :quantity_scale)
-    end
+  def recipe_item_params
+    params.require(:recipe_item).permit(:inventory_item_id, :quantity, :quantity_scale, :recipe_id)
+  end
+
+  def set_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+    @recipe_item = @recipe.recipe_items.build
+  end
 end

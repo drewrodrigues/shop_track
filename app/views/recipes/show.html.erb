@@ -1,9 +1,23 @@
 <p id="notice"><%= notice %></p>
 
-<p>
+<table>
   <strong>Name:</strong>
   <%= @recipe.name %>
-</p>
+
+  <tbody class="ui table">
+  <% @recipe.recipe_items.each do |recipe_item| %>
+    <tr>
+      <td><%= recipe_item.inventory_item.kitchen_item.name %></td>
+      <td><%= recipe_item.quantity %></td>
+      <td><%= recipe_item.quantity_scale %></td>
+      <td><%= recipe_item.recipe_id %></td>
+      <td><%= link_to 'Show', [recipe_item.recipe, recipe_item] %></td>
+      <td><%= link_to 'Edit', edit_recipe_recipe_item_path(recipe_item.recipe, recipe_item) %></td>
+      <td><%= link_to 'Destroy', [recipe_item.recipe, recipe_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Edit', edit_recipe_path(@recipe) %> |
 <%= link_to 'Back', recipes_path %>

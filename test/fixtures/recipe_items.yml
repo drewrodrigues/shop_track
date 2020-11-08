@@ -4,8 +4,10 @@ one:
   inventory_item: one
   quantity: 1.5
   quantity_scale: MyString
+  recipe: one
 
 two:
   inventory_item: two
   quantity: 1.5
   quantity_scale: MyString
+  recipe: two

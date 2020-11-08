@@ -17,6 +17,7 @@ class RecipeItemsTest < ApplicationSystemTestCase
     fill_in "Inventory item", with: @recipe_item.inventory_item_id
     fill_in "Quantity", with: @recipe_item.quantity
     fill_in "Quantity scale", with: @recipe_item.quantity_scale
+    fill_in "Recipe", with: @recipe_item.recipe_id
     click_on "Create Recipe item"
 
     assert_text "Recipe item was successfully created"
@@ -30,6 +31,7 @@ class RecipeItemsTest < ApplicationSystemTestCase
     fill_in "Inventory item", with: @recipe_item.inventory_item_id
     fill_in "Quantity", with: @recipe_item.quantity
     fill_in "Quantity scale", with: @recipe_item.quantity_scale
+    fill_in "Recipe", with: @recipe_item.recipe_id
     click_on "Update Recipe item"
 
     assert_text "Recipe item was successfully updated"

@@ -17,7 +17,7 @@ class RecipeItemsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create recipe_item" do
     assert_difference('RecipeItem.count') do
-      post recipe_items_url, params: { recipe_item: { inventory_item_id: @recipe_item.inventory_item_id, quantity: @recipe_item.quantity, quantity_scale: @recipe_item.quantity_scale } }
+      post recipe_items_url, params: { recipe_item: { inventory_item_id: @recipe_item.inventory_item_id, quantity: @recipe_item.quantity, quantity_scale: @recipe_item.quantity_scale, recipe_id: @recipe_item.recipe_id } }
     end
 
     assert_redirected_to recipe_item_url(RecipeItem.last)
@@ -34,7 +34,7 @@ class RecipeItemsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update recipe_item" do
-    patch recipe_item_url(@recipe_item), params: { recipe_item: { inventory_item_id: @recipe_item.inventory_item_id, quantity: @recipe_item.quantity, quantity_scale: @recipe_item.quantity_scale } }
+    patch recipe_item_url(@recipe_item), params: { recipe_item: { inventory_item_id: @recipe_item.inventory_item_id, quantity: @recipe_item.quantity, quantity_scale: @recipe_item.quantity_scale, recipe_id: @recipe_item.recipe_id } }
     assert_redirected_to recipe_item_url(@recipe_item)
   end
 
