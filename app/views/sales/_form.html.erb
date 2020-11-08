@@ -11,12 +11,7 @@
     </div>
   <% end %>
 
-  <div class="field sales__recipe-item">
-    <%= form.label :recipe_id %>
-    <%= associated_recipe_radios %>
-  </div>
-
-  <div>
+  <div class="field">
     <%= form.label :receipt_number %>
     <%= form.text_field :receipt_number %>
   </div>
@@ -26,18 +21,26 @@
     <%= form.number_field :discount_percentage %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <p>Choose a recipe</p>
+  <div class="field sales__recipe-items">
+    <div class="sales__recipe-item">
+      <%= associated_recipe_radios %>
+    </div>
   </div>
+
+<!--  <div class="actions">-->
+    <%#= form.submit %>
+<!--  </div>-->
 <% end %>
 
 <script>
-  const form = document.querySelector('form')
-  const radioChoices = document.querySelectorAll('.sales__recipe-item img');
-  const recipeItemContainer = document.querySelector('.sales__recipe-item');
-  console.log(radioChoices);
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form')
+    const radioChoices = document.querySelectorAll('.sales__recipe-item img');
+    const recipeItemContainer = document.querySelector('.sales__recipe-item');
 
-  recipeItemContainer.addEventListener('click', () => {
-    form.submit();
+    recipeItemContainer.addEventListener('click', () => {
+      form.submit();
+    });
   });
 </script>

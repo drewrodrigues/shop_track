@@ -69,8 +69,22 @@ input:checked + img {
   border: 5px solid limegreen;
 }
 
+.sales__recipe-item {
+  display: flex;
+}
+
+.sales__recipe-item label {
+  display: flex;
+  flex-direction: column;
+  margin-right: 50px;
+  background: #efefef;
+  border-radius: 10px;
+  padding: 20px;
+  width: 150px;
+}
+
 .sales__recipe-item img {
   border-radius: 50%;
   box-sizing: border-box;
-  width: 100px;
+  width: 100%;
 }
