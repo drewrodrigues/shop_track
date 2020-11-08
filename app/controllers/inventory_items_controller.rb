@@ -4,7 +4,7 @@ class InventoryItemsController < ApplicationController
   # GET /inventory_items
   # GET /inventory_items.json
   def index
-    @inventory_items = InventoryItem.includes(:kitchen_item).all
+    @inventory_items = InventoryItem.order('created_at DESC').includes(:kitchen_item).all
   end
 
   # GET /inventory_items/1
