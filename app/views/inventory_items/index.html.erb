@@ -9,6 +9,7 @@
       <th>Count</th>
       <th>Quantity</th>
       <th>Price</th>
+      <th>Cost Per Item</th>
       <th>Quantity scale</th>
       <th colspan="3"></th>
     </tr>
@@ -21,6 +22,7 @@
         <td><%= inventory_item.count %></td>
         <td><%= inventory_item.quantity %></td>
         <td><%= inventory_item.price %></td>
+        <td><%= inventory_item.cost_per_item %></td>
         <td><%= inventory_item.quantity_scale %></td>
         <td><%= link_to 'Show', inventory_item %></td>
         <td><%= link_to 'Edit', edit_inventory_item_path(inventory_item) %></td>
