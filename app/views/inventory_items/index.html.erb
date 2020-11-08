@@ -1,17 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Inventory Items</h1>
+<h2 class="ui header">
+  Inventory
+  <div class="sub header">Track your inventory</div>
+</h2>
 
-<table>
+<table class="ui celled definition compact table">
   <thead>
     <tr>
-      <th>Kitchen item</th>
+      <th></th>
       <th>Count</th>
       <th>Quantity</th>
       <th>Price</th>
       <th>Cost Per Item</th>
       <th>Quantity scale</th>
-      <th colspan="3"></th>
+      <th colspan="1"></th>
     </tr>
   </thead>
 
@@ -24,14 +27,29 @@
         <td><%= inventory_item.price %></td>
         <td><%= inventory_item.cost_per_item %></td>
         <td><%= inventory_item.quantity_scale %></td>
-        <td><%= link_to 'Show', inventory_item %></td>
-        <td><%= link_to 'Edit', edit_inventory_item_path(inventory_item) %></td>
-        <td><%= link_to 'Destroy', inventory_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="collapsing">
+          <%= link_to inventory_item, class: 'ui icon button' do %>
+            <i aria-hidden="true" class="eye icon"></i>
+          <% end %>
+          <%= link_to edit_inventory_item_path(inventory_item), class: 'ui icon button' do %>
+            <i aria-hidden="true" class="pencil icon"></i>
+          <% end %>
+          <%= link_to inventory_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui icon button' do %>
+            <i aria-hidden="true" class="cancel icon"></i>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </tbody>
+
+  <tfoot class="full-width">
+    <tr>
+        <th colspan="7">
+          <%= link_to new_inventory_item_path, class: 'ui small icon primary right floated left labeled button' do %>
+            <i aria-hidden="true" class="plus icon"></i>
+            New Inventory Item
+          <% end %>
+        </th>
+    </tr>
+  </tfoot>
 </table>
-
-<br>
-
-<%= link_to 'New Inventory Item', new_inventory_item_path %>
