@@ -18,10 +18,11 @@
     <tr>
       <th></th>
       <th>Count</th>
-      <th>Quantity</th>
+      <th>Quantity Per Item</th>
+      <th>Total Quantity</th>
       <th>Price</th>
+      <th>Cost Per Measurement</th>
       <th>Cost Per Item</th>
-      <th>Quantity scale</th>
       <th colspan="1"></th>
     </tr>
     </thead>
@@ -31,10 +32,11 @@
       <tr>
         <td><%= inventory_item.kitchen_item_name %></td>
         <td><%= inventory_item.count %></td>
-        <td><%= inventory_item.quantity %></td>
+        <td><%= inventory_item.quantity %> <%= inventory_item.quantity_scale %></td>
+        <td><%= inventory_item.quantity * inventory_item.count %> <%= inventory_item.quantity_scale %></td>
         <td><%= inventory_item.price %></td>
+        <td><%= inventory_item.cost_per_measurement %> / 1 <%= inventory_item.quantity_scale %></td>
         <td><%= inventory_item.cost_per_item %></td>
-        <td><%= inventory_item.quantity_scale %></td>
         <%= form_button_group do %>
           <%= form_icon inventory_item, "eye" %>
           <%= form_icon edit_inventory_item_path(inventory_item), "pencil" %>
