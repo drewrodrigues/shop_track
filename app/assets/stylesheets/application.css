@@ -18,3 +18,22 @@
   margin: 20px 0;
   padding: 50px 0;
 }
+
+.recipe__header {
+  display: flex;
+  margin-top: 50px;
+}
+
+.recipe__header main {
+  flex-grow: 1;
+}
+
+.recipe__photo {
+  border-radius: 50%;
+  margin-right: 50px;
+  max-width: 250px;
+}
+
+.statistics {
+  margin-top: 100px;
+}
