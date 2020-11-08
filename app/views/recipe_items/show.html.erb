@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Inventory item:</strong>
+  <%= @recipe_item.inventory_item_id %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @recipe_item.quantity %>
+</p>
+
+<p>
+  <strong>Quantity scale:</strong>
+  <%= @recipe_item.quantity_scale %>
+</p>
+
+<%= link_to 'Edit', edit_recipe_item_path(@recipe_item) %> |
+<%= link_to 'Back', recipe_items_path %>

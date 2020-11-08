@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Recipe Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Inventory item</th>
+      <th>Quantity</th>
+      <th>Quantity scale</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recipe_items.each do |recipe_item| %>
+      <tr>
+        <td><%= recipe_item.inventory_item_id %></td>
+        <td><%= recipe_item.quantity %></td>
+        <td><%= recipe_item.quantity_scale %></td>
+        <td><%= link_to 'Show', recipe_item %></td>
+        <td><%= link_to 'Edit', edit_recipe_item_path(recipe_item) %></td>
+        <td><%= link_to 'Destroy', recipe_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recipe Item', new_recipe_item_path %>
