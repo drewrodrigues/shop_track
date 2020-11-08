@@ -60,3 +60,17 @@ a:hover {
 .statistics {
   margin-top: 100px;
 }
+
+input[type='radio'] {
+  display: none;
+}
+
+input:checked + img {
+  border: 5px solid limegreen;
+}
+
+.sales__recipe-item img {
+  border-radius: 50%;
+  box-sizing: border-box;
+  width: 100px;
+}

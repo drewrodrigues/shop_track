@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_08_071326) do
+ActiveRecord::Schema.define(version: 2020_11_08_154546) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -68,8 +68,18 @@ ActiveRecord::Schema.define(version: 2020_11_08_071326) do
     t.float "sale_price"
   end
 
+  create_table "sales", force: :cascade do |t|
+    t.integer "recipe_id", null: false
+    t.integer "discount_percentage"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "receipt_number"
+    t.index ["recipe_id"], name: "index_sales_on_recipe_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inventory_items", "kitchen_items"
   add_foreign_key "recipe_items", "inventory_items"
   add_foreign_key "recipe_items", "recipes"
+  add_foreign_key "sales", "recipes"
 end
