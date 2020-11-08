@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Recipe:</strong>
+  <%= @sale.recipe_id %>
+</p>
+
+<p>
+  <strong>Discount percentage:</strong>
+  <%= @sale.discount_percentage %>
+</p>
+
+<%= link_to 'Edit', edit_sale_path(@sale) %> |
+<%= link_to 'Back', sales_path %>
