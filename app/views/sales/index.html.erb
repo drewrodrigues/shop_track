@@ -13,6 +13,7 @@
       <th>Receipt Number</th>
       <th>Recipe</th>
       <th>Discount percentage</th>
+      <th>Cost</th>
       <th>Final Sales Price</th>
     </tr>
   </thead>
@@ -23,6 +24,7 @@
         <td><%= sale.receipt_number %></td>
         <td><%= sale.recipe.name %></td>
         <td><%= sale.discount_percentage %></td>
+        <td><%= sale.recipe.total_cost %></td>
         <td><%= sale.final_sale_price %></td>
         <td><%= link_to 'Show', sale %></td>
         <td><%= link_to 'Edit', edit_sale_path(sale) %></td>

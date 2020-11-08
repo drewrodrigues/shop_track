@@ -28,19 +28,7 @@
     </div>
   </div>
 
-<!--  <div class="actions">-->
-    <%#= form.submit %>
-<!--  </div>-->
+  <div class="actions">
+    <%= form.submit %>
+  </div>
 <% end %>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form')
-    const radioChoices = document.querySelectorAll('.sales__recipe-item img');
-    const recipeItemContainer = document.querySelector('.sales__recipe-item');
-
-    recipeItemContainer.addEventListener('click', () => {
-      form.submit();
-    });
-  });
-</script>

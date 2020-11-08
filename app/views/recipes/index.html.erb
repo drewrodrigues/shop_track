@@ -5,7 +5,9 @@
   <% @recipes.each do |recipe| %>
       <div role="listitem" class="item recipe__item">
         <main>
-          <%= image_tag recipe.photo, class: 'ui avatar image' %>
+          <% if recipe.photo.attached? %>
+            <%= image_tag recipe.photo, class: 'ui avatar image' %>
+          <% end %>
           <%= link_to recipe.name, url_for(recipe), class: 'header' %>
         </main>
 
