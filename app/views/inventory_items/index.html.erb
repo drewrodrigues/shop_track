@@ -5,8 +5,16 @@
   <div class="sub header">Track your inventory</div>
 </h2>
 
-<table class="ui celled definition compact table">
-  <thead>
+<% if @inventory_items.empty? %>
+  <div class="ui placeholder segment">
+    <div class="ui icon header">
+      <i aria-hidden="true" class="box icon"></i>No inventory has been tracked.
+    </div>
+    <%= form_new_button new_inventory_item_path, "New Inventory Item" %>
+  </div>
+<% else %>
+  <table class="ui celled definition compact table">
+    <thead>
     <tr>
       <th></th>
       <th>Count</th>
@@ -16,9 +24,9 @@
       <th>Quantity scale</th>
       <th colspan="1"></th>
     </tr>
-  </thead>
+    </thead>
 
-  <tbody>
+    <tbody>
     <% @inventory_items.each do |inventory_item| %>
       <tr>
         <td><%= inventory_item.kitchen_item_name %></td>
@@ -27,29 +35,24 @@
         <td><%= inventory_item.price %></td>
         <td><%= inventory_item.cost_per_item %></td>
         <td><%= inventory_item.quantity_scale %></td>
-        <td class="collapsing">
-          <%= link_to inventory_item, class: 'ui icon button' do %>
-            <i aria-hidden="true" class="eye icon"></i>
-          <% end %>
-          <%= link_to edit_inventory_item_path(inventory_item), class: 'ui icon button' do %>
-            <i aria-hidden="true" class="pencil icon"></i>
-          <% end %>
-          <%= link_to inventory_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'ui icon button' do %>
-            <i aria-hidden="true" class="cancel icon"></i>
-          <% end %>
-        </td>
+        <%= form_button_group do %>
+          <%= form_icon inventory_item, "eye" %>
+          <%= form_icon edit_inventory_item_path(inventory_item), "pencil" %>
+          <%= form_delete_button inventory_item %>
+        <% end %>
       </tr>
     <% end %>
-  </tbody>
+    </tbody>
 
-  <tfoot class="full-width">
+    <tfoot class="full-width">
     <tr>
-        <th colspan="7">
-          <%= link_to new_inventory_item_path, class: 'ui small icon primary right floated left labeled button' do %>
-            <i aria-hidden="true" class="plus icon"></i>
-            New Inventory Item
-          <% end %>
-        </th>
+      <th colspan="7">
+        <%= link_to new_inventory_item_path, class: 'ui small icon primary right floated left labeled button' do %>
+          <i aria-hidden="true" class="plus icon"></i>
+          New Inventory Item
+        <% end %>
+      </th>
     </tr>
-  </tfoot>
-</table>
+    </tfoot>
+  </table>
+<% end %>
