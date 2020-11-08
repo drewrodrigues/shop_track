@@ -4,6 +4,6 @@ class InventoryItem < ApplicationRecord
   delegate :name, to: :kitchen_item, prefix: true
 
   def cost_per_item
-    price / quantity
+    price / count
   end
 end
