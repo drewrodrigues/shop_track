@@ -2,7 +2,8 @@ module SalesHelper
   def associated_recipe_radios
     fomatted_recipes = Recipe.all.map do |r|
       Struct.new("Recipe", :id, :photo, :name)
-      Struct::Recipe.new(r.id, url_for(r.photo), r.name)
+      photo_url = r.photo.attached? ? url_for(r.photo) : nil
+      Struct::Recipe.new(r.id, photo_url, r.name)
     end
 
     i = 0
@@ -12,7 +13,7 @@ module SalesHelper
         i += 1
 
         concat f.radio_button
-        concat image_tag photo
+        concat image_tag photo if photo
         concat f.text
       end
     end

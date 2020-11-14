@@ -2,7 +2,9 @@
 
 <header class="recipe__header">
   <div class="recipe__photo-container">
-    <%= image_tag @recipe.photo, class: 'recipe__photo' %>
+    <% if @recipe.photo.attached? %>
+      <%= image_tag @recipe.photo, class: 'recipe__photo' %>
+    <% end %>
   </div>
 
   <main>
