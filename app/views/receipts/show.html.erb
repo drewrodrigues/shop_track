@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Kitchen item:</strong>
+  <%= @receipt.kitchen_item_id %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @receipt.count %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @receipt.quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @receipt.price %>
+</p>
+
+<p>
+  <strong>Quantity scale:</strong>
+  <%= @receipt.quantity_scale %>
+</p>
+
+<%= link_to 'Edit', edit_receipt_path(@receipt) %> |
+<%= link_to 'Back', receipts_path %>

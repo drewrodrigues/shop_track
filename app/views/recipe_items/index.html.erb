@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Inventory item</th>
+      <th>Receipt</th>
       <th>Quantity</th>
       <th>Quantity scale</th>
       <th>Recipe</th>
@@ -16,7 +16,7 @@
   <tbody>
     <% @recipe_items.each do |recipe_item| %>
       <tr>
-        <td><%= recipe_item.inventory_item_id %></td>
+        <td><%= recipe_item.receipt_id %></td>
         <td><%= recipe_item.quantity %></td>
         <td><%= recipe_item.quantity_scale %></td>
         <td><%= recipe_item.recipe_id %></td>

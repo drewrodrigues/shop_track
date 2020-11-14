@@ -1,6 +1,6 @@
 class CreateInventoryItems < ActiveRecord::Migration[6.0]
   def change
-    create_table :inventory_items do |t|
+    create_table :receipts do |t|
       t.belongs_to :kitchen_item, null: false, foreign_key: true
       t.integer :count
       t.float :quantity

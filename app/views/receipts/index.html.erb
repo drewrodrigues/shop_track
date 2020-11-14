@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h2 class="ui header">
+  Receipt
+  <div class="sub header">Track your receipts</div>
+</h2>
+
+<% if @receipts.empty? %>
+  <div class="ui placeholder segment">
+    <div class="ui icon header">
+      <i aria-hidden="true" class="box icon"></i>No receipts have been tracked.
+    </div>
+    <%= form_new_button new_receipt_path, "New Receipt" %>
+  </div>
+<% else %>
+  <table class="ui celled definition compact table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Count</th>
+      <th>Quantity Per Item</th>
+      <th>Total Quantity</th>
+      <th>Price</th>
+      <th>Cost Per Measurement</th>
+      <th>Cost Per Item</th>
+      <th colspan="1"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <% @receipts.each do |receipt| %>
+      <tr>
+        <td><%= receipt.kitchen_item_name %></td>
+        <td><%= receipt.count %></td>
+        <td><%= receipt.quantity %> <%= receipt.quantity_scale %></td>
+        <td><%= receipt.quantity * receipt.count %> <%= receipt.quantity_scale %></td>
+        <td><%= receipt.price %></td>
+        <td><%= receipt.cost_per_measurement %> / 1 <%= receipt.quantity_scale %></td>
+        <td><%= receipt.cost_per_item %></td>
+        <%= form_button_group do %>
+          <%= form_icon receipt, "eye" %>
+          <%= form_icon edit_receipt_path(receipt), "pencil" %>
+          <%= form_delete_button receipt %>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+
+    <tfoot class="full-width">
+    <tr>
+      <th colspan="7">
+        <%= form_new_button new_receipt_path, "New Receipt" %>
+      </th>
+    </tr>
+    </tfoot>
+  </table>
+<% end %>

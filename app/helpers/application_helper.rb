@@ -3,9 +3,9 @@ module ApplicationHelper
     ['ml', 'grams']
   end
 
-  def options_for_inventory_item_and_kitchen_item
-    InventoryItem.includes(:kitchen_item).map do |inventory_item|
-      ["#{inventory_item.kitchen_item.name}, priced at #{inventory_item.cost_per_item} per item", inventory_item.id]
+  def options_for_receipt_and_kitchen_item
+    Recipe.includes(:kitchen_item).map do |receipt|
+      ["#{recipe.kitchen_item.name}, priced at #{receipt.cost_per_item} per item", receipt.id]
     end
   end
 end

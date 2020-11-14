@@ -1,11 +1,11 @@
-<%= form_with(model: inventory_item, local: true) do |form| %>
-  <% if inventory_item.errors.any? %>
+<%= form_with(model: receipt, local: true) do |form| %>
+  <% if receipt.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(inventory_item.errors.count, "error") %> prohibited this inventory_item from
+      <h2><%= pluralize(receipt.errors.count, "error") %> prohibited this receipt from
         being saved:</h2>
 
       <ul>
-        <% inventory_item.errors.full_messages.each do |message| %>
+        <% receipt.errors.full_messages.each do |message| %>
           <li><%= message %></li>
         <% end %>
       </ul>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :total_price, for: :inventory_item_price %>
+    <%= form.label :total_price, for: :receipt_price %>
     <%= form.text_field :price %>
   </div>
 

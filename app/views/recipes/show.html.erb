@@ -83,7 +83,7 @@
   <tbody>
   <% @recipe.recipe_items.each do |recipe_item| %>
     <tr>
-      <td><%= recipe_item.inventory_item.kitchen_item.name %></td>
+      <td><%= recipe_item.receipt.kitchen_item.name %></td>
       <td><%= recipe_item.quantity %> <%= recipe_item.quantity_scale %></td>
       <td><%= recipe_item.cost %></td>
       <td><%= link_to 'Show', [recipe_item.recipe, recipe_item] %></td>

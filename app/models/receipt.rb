@@ -1,4 +1,4 @@
-class InventoryItem < ApplicationRecord
+class Receipt < ApplicationRecord
   belongs_to :kitchen_item
 
   delegate :name, to: :kitchen_item, prefix: true
