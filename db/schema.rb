@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_072645) do
+ActiveRecord::Schema.define(version: 2020_11_14_073411) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,13 +63,13 @@ ActiveRecord::Schema.define(version: 2020_11_14_072645) do
   end
 
   create_table "recipe_items", force: :cascade do |t|
-    t.bigint "inventory_item_id", null: false
+    t.bigint "receipt_id", null: false
     t.float "quantity"
     t.string "quantity_scale"
     t.bigint "recipe_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["inventory_item_id"], name: "index_recipe_items_on_inventory_item_id"
+    t.index ["receipt_id"], name: "index_recipe_items_on_receipt_id"
     t.index ["recipe_id"], name: "index_recipe_items_on_recipe_id"
   end
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(version: 2020_11_14_072645) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "processed_items", "receipts"
   add_foreign_key "receipts", "kitchen_items"
-  add_foreign_key "recipe_items", "receipts", column: "inventory_item_id"
+  add_foreign_key "recipe_items", "receipts"
   add_foreign_key "recipe_items", "recipes"
   add_foreign_key "sales", "recipes"
 end
