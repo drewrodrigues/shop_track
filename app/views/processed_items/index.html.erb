@@ -5,9 +5,12 @@
 <table>
   <thead>
     <tr>
-      <th>Receipt</th>
+      <th>Name</th>
+      <th>Initial Quantity</th>
+      <th>Initial Scale</th>
       <th>Converts to quantity</th>
       <th>Converts to scale</th>
+      <th>Cost per 1 processed unit</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,9 +18,12 @@
   <tbody>
     <% @processed_items.each do |processed_item| %>
       <tr>
-        <td><%= processed_item.receipt_id %></td>
+        <td><%= processed_item.name %></td>
+        <td><%= processed_item.initial_quantity %></td>
+        <td><%= processed_item.initial_scale %></td>
         <td><%= processed_item.converts_to_quantity %></td>
         <td><%= processed_item.converts_to_scale %></td>
+        <td><%= processed_item.cost_per_one_conversion_quantity_formatted %></td>
         <td><%= link_to 'Show', processed_item %></td>
         <td><%= link_to 'Edit', edit_processed_item_path(processed_item) %></td>
         <td><%= link_to 'Destroy', processed_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>

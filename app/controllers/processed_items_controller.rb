@@ -69,6 +69,6 @@ class ProcessedItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def processed_item_params
-      params.require(:processed_item).permit(:receipt_id, :converts_to_quantity, :converts_to_scale)
+      params.require(:processed_item).permit(:receipt_id, :converts_to_quantity, :converts_to_scale, :initial_quantity, :initial_scale, :name)
     end
 end

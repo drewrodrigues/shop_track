@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_14_073411) do
+ActiveRecord::Schema.define(version: 2020_11_14_093741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,9 @@ ActiveRecord::Schema.define(version: 2020_11_14_073411) do
     t.string "converts_to_scale"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.float "initial_quantity"
+    t.string "initial_scale"
+    t.string "name"
     t.index ["receipt_id"], name: "index_processed_items_on_receipt_id"
   end
 

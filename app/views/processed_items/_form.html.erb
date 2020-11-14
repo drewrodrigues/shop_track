@@ -13,8 +13,27 @@
 
   <div class="field">
     <%= form.label :receipt_id %>
-    <%= form.text_field :receipt_id %>
+    <%= form.select :receipt_id, options_for_receipt_and_kitchen_item %>
   </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <h3>Before Being Processed</h3>
+
+  <div class="field">
+    <%= form.label :initial_quantity %>
+    <%= form.text_field :initial_quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :initial_scale %>
+    <%= form.select :initial_scale, quantity_scale_options %>
+  </div>
+
+  <h3>After Being Processed</h3>
 
   <div class="field">
     <%= form.label :converts_to_quantity %>
@@ -23,7 +42,7 @@
 
   <div class="field">
     <%= form.label :converts_to_scale %>
-    <%= form.text_field :converts_to_scale %>
+    <%= form.select :converts_to_scale, quantity_scale_options %>
   </div>
 
   <div class="actions">
