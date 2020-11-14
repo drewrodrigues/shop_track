@@ -1,9 +1,0 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  recipe: one
-  discount_percentage: 1
-
-two:
-  recipe: two
-  discount_percentage: 1
