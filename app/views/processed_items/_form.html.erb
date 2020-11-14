@@ -1,0 +1,32 @@
+<%= form_with(model: processed_item, local: true) do |form| %>
+  <% if processed_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(processed_item.errors.count, "error") %> prohibited this processed_item from being saved:</h2>
+
+      <ul>
+        <% processed_item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :receipt_id %>
+    <%= form.text_field :receipt_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :converts_to_quantity %>
+    <%= form.text_field :converts_to_quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :converts_to_scale %>
+    <%= form.text_field :converts_to_scale %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

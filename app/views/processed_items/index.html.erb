@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Processed Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Receipt</th>
+      <th>Converts to quantity</th>
+      <th>Converts to scale</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @processed_items.each do |processed_item| %>
+      <tr>
+        <td><%= processed_item.receipt_id %></td>
+        <td><%= processed_item.converts_to_quantity %></td>
+        <td><%= processed_item.converts_to_scale %></td>
+        <td><%= link_to 'Show', processed_item %></td>
+        <td><%= link_to 'Edit', edit_processed_item_path(processed_item) %></td>
+        <td><%= link_to 'Destroy', processed_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Processed Item', new_processed_item_path %>
