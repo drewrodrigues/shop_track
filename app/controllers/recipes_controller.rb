@@ -11,10 +11,13 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @recipe_items = @recipe.recipe_items
+    @recipe_processed_items = @recipe.recipe_processed_items
+    @items = @recipe_processed_items.to_a + @recipe_items.to_a
+
     @total_cost = 0
     @total_quantity = 0
 
-    @recipe_items.each do |recipe_item|
+    @items.each do |recipe_item|
       @total_cost += recipe_item.cost
       @total_quantity += recipe_item.quantity
     end

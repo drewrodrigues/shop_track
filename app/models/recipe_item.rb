@@ -14,6 +14,8 @@ class RecipeItem < ApplicationRecord
   belongs_to :receipt
   belongs_to :recipe
 
+  delegate :name, to: :receipt
+
   def cost
     receipt.cost_per_measurement * quantity
   end

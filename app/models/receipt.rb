@@ -23,4 +23,8 @@ class Receipt < ApplicationRecord
   def cost_per_measurement
     cost_per_item / quantity
   end
+
+  def name
+    kitchen_item.name
+  end
 end

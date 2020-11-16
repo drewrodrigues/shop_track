@@ -11,6 +11,7 @@
 class Recipe < ApplicationRecord
   has_one_attached :photo
   has_many :recipe_items
+  has_many :recipe_processed_items
 
   validates :sale_price, presence: true
 

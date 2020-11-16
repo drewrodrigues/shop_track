@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :sales
   resources :recipes do
     resources :recipe_items
+    resources :recipe_processed_items
   end
   resources :receipts
   resources :kitchen_items
