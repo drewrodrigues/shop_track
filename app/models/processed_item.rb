@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: processed_items
+#
+#  id                   :bigint           not null, primary key
+#  receipt_id           :bigint           not null
+#  converts_to_quantity :float
+#  converts_to_scale    :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  initial_quantity     :float
+#  initial_scale        :string
+#  name                 :string
+#
 class ProcessedItem < ApplicationRecord
   belongs_to :receipt
 

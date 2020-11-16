@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: recipes
+#
+#  id         :bigint           not null, primary key
+#  name       :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  sale_price :float
+#
 class Recipe < ApplicationRecord
   has_one_attached :photo
   has_many :recipe_items
