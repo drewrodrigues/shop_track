@@ -8,4 +8,8 @@ module ApplicationHelper
       ["#{receipt.kitchen_item.name}, priced at #{receipt.cost_per_item} per item", receipt.id]
     end
   end
+
+  def edit_path_for_nested_resource(parent, child)
+    "/#{parent.class.table_name}/#{parent.id}/#{child.class.table_name}/#{child.id}/edit"
+  end
 end

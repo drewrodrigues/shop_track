@@ -87,7 +87,7 @@
       <td><%= recipe_item.quantity %> <%= recipe_item.quantity_scale %></td>
       <td><%= recipe_item.cost %></td>
       <td><%= link_to 'Show', [recipe_item.recipe, recipe_item] %></td>
-      <td><%= link_to 'Edit', edit_recipe_recipe_item_path(recipe_item.recipe, recipe_item) %></td>
+      <td><%= link_to 'Edit', edit_path_for_nested_resource(recipe_item.recipe, recipe_item) %></td>
       <td><%= link_to 'Destroy', [recipe_item.recipe, recipe_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
   <% end %>
