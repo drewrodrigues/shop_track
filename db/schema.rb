@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_16_133408) do
+ActiveRecord::Schema.define(version: 2020_11_17_122147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,24 @@ ActiveRecord::Schema.define(version: 2020_11_16_133408) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "combined_items", force: :cascade do |t|
+    t.bigint "receipt_id", null: false
+    t.float "quantity"
+    t.string "quantity_scale"
+    t.bigint "combined_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["combined_id"], name: "index_combined_items_on_combined_id"
+    t.index ["receipt_id"], name: "index_combined_items_on_receipt_id"
+  end
+
+  create_table "combineds", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.float "quantity"
   end
 
   create_table "kitchen_items", force: :cascade do |t|
@@ -103,6 +121,8 @@ ActiveRecord::Schema.define(version: 2020_11_16_133408) do
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "combined_items", "combineds"
+  add_foreign_key "combined_items", "receipts"
   add_foreign_key "processed_items", "receipts"
   add_foreign_key "receipts", "kitchen_items"
   add_foreign_key "recipe_items", "receipts"

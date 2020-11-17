@@ -1,28 +1,20 @@
 class CombinedsController < ApplicationController
   before_action :set_combined, only: [:show, :edit, :update, :destroy]
 
-  # GET /combineds
-  # GET /combineds.json
   def index
     @combineds = Combined.all
   end
 
-  # GET /combineds/1
-  # GET /combineds/1.json
   def show
+    @combined_items = @combined.combined_items
   end
 
-  # GET /combineds/new
   def new
     @combined = Combined.new
   end
 
-  # GET /combineds/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /combineds
-  # POST /combineds.json
   def create
     @combined = Combined.new(combined_params)
 
@@ -37,8 +29,6 @@ class CombinedsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /combineds/1
-  # PATCH/PUT /combineds/1.json
   def update
     respond_to do |format|
       if @combined.update(combined_params)
@@ -51,8 +41,6 @@ class CombinedsController < ApplicationController
     end
   end
 
-  # DELETE /combineds/1
-  # DELETE /combineds/1.json
   def destroy
     @combined.destroy
     respond_to do |format|
@@ -62,13 +50,12 @@ class CombinedsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_combined
-      @combined = Combined.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def combined_params
-      params.require(:combined).permit(:name)
-    end
+  def set_combined
+    @combined = Combined.find(params[:id])
+  end
+
+  def combined_params
+    params.require(:combined).permit(:name, :quantity)
+  end
 end

@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Receipt:</strong>
+  <%= @combined_item.receipt_id %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @combined_item.quantity %>
+</p>
+
+<p>
+  <strong>Quantity scale:</strong>
+  <%= @combined_item.quantity_scale %>
+</p>
+
+<p>
+  <strong>Combined:</strong>
+  <%= @combined_item.combined_id %>
+</p>
+
+<%= link_to 'Edit', edit_combined_item_path(@combined_item) %> |
+<%= link_to 'Back', combined_items_path %>

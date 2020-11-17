@@ -1,0 +1,2 @@
+module CombinedItemsHelper
+end

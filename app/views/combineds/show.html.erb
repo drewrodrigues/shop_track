@@ -3,7 +3,38 @@
 <p>
   <strong>Name:</strong>
   <%= @combined.name %>
+  <%= @combined.quantity %>
+  <%= @combined.cost %>
+  <%= @combined.cost_per_quantity %>
+
+  <table>
+    <thead>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Cost</th>
+      <th>Cost per Measurement</th>
+    </thead>
+
+    <% @combined_items.each do |item| %>
+      <tr>
+        <td>
+          <%= item.name %>
+        </td>
+        <td>
+          <%= item.quantity %>  <%= item.quantity_scale %>
+        </td>
+        <td>
+          <%= item.cost %>
+        </td>
+        <td>
+          <%= item.cost_per_measurement %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
 </p>
+
+<%= form_new_button new_combined_combined_item_path(@combined), "Add Combined Item" %>
 
 <%= link_to 'Edit', edit_combined_path(@combined) %> |
 <%= link_to 'Back', combineds_path %>

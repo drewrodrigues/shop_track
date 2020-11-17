@@ -9,4 +9,19 @@
 #
 class Combined < ApplicationRecord
   validates :name, presence: true
+  validates :quantity, presence: true
+
+  has_many :combined_items
+
+  def cost
+    total = 0
+    combined_items.each do |item|
+      total += item.cost
+    end
+    total
+  end
+
+  def cost_per_quantity
+    cost / quantity
+  end
 end

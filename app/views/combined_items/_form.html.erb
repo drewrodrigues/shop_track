@@ -1,0 +1,34 @@
+<%= form_for [@combined, @combined_item] do |form| %>
+  <% if combined_item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(combined_item.errors.count, "error") %> prohibited this combined_item from being saved:</h2>
+
+      <ul>
+        <% combined_item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :receipt_id %>
+    <%= form.select :receipt_id, options_for_receipt_and_kitchen_item %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.text_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity_scale %>
+    <%= form.text_field :quantity_scale %>
+  </div>
+
+  <%= form.hidden_field :combined_id, value: @combined.id %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

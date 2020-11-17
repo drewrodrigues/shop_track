@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'kitchen_items#index'
+
   resources :combineds do
     resources :combined_items
   end
