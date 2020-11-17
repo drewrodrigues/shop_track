@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Recipe Combined Items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Recipe</th>
+      <th>Combined item</th>
+      <th>Quantity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recipe_combined_items.each do |recipe_combined_item| %>
+      <tr>
+        <td><%= recipe_combined_item.recipe_id %></td>
+        <td><%= recipe_combined_item.combined_id %></td>
+        <td><%= recipe_combined_item.quantity %></td>
+        <td><%= link_to 'Show', recipe_combined_item %></td>
+        <td><%= link_to 'Edit', edit_recipe_combined_item_path(recipe_combined_item) %></td>
+        <td><%= link_to 'Destroy', recipe_combined_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recipe Combined Item', new_recipe_combined_item_path %>

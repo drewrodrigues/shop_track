@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_122147) do
+ActiveRecord::Schema.define(version: 2020_11_17_134319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_122147) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.float "quantity"
+    t.string "quantity_scale"
   end
 
   create_table "kitchen_items", force: :cascade do |t|
@@ -81,6 +82,16 @@ ActiveRecord::Schema.define(version: 2020_11_17_122147) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["kitchen_item_id"], name: "index_receipts_on_kitchen_item_id"
+  end
+
+  create_table "recipe_combined_items", force: :cascade do |t|
+    t.bigint "recipe_id", null: false
+    t.bigint "combined_id", null: false
+    t.float "quantity"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["combined_id"], name: "index_recipe_combined_items_on_combined_id"
+    t.index ["recipe_id"], name: "index_recipe_combined_items_on_recipe_id"
   end
 
   create_table "recipe_items", force: :cascade do |t|
@@ -125,6 +136,8 @@ ActiveRecord::Schema.define(version: 2020_11_17_122147) do
   add_foreign_key "combined_items", "receipts"
   add_foreign_key "processed_items", "receipts"
   add_foreign_key "receipts", "kitchen_items"
+  add_foreign_key "recipe_combined_items", "combined_items", column: "combined_id"
+  add_foreign_key "recipe_combined_items", "recipes"
   add_foreign_key "recipe_items", "receipts"
   add_foreign_key "recipe_items", "recipes"
   add_foreign_key "recipe_processed_items", "processed_items"
