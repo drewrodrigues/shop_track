@@ -35,7 +35,7 @@
         <td><%= receipt.quantity %> <%= receipt.quantity_scale %></td>
         <td><%= receipt.quantity * receipt.count %> <%= receipt.quantity_scale %></td>
         <td><%= receipt.price %></td>
-        <td><%= receipt.cost_per_measurement %> / 1 <%= receipt.quantity_scale %></td>
+        <td><%= receipt.cost_per_measurement * 1000 %> / 1 L/KG <%= receipt.quantity_scale %></td>
         <td><%= receipt.cost_per_item %></td>
         <%= form_button_group do %>
           <%= form_icon receipt, "eye" %>
