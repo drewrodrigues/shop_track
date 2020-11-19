@@ -35,7 +35,7 @@
         <td><%= receipt.quantity.round %> <%= receipt.quantity_scale %></td>
         <td><%= (receipt.quantity * receipt.count).round %> <%= receipt.quantity_scale %></td>
         <td><%= receipt.price %></td>
-        <td><%= (receipt.cost_per_measurement * 1000).round(2) %> <%= receipt.quantity_scale %></td>
+        <td><%= (receipt.cost_per_measurement * 1000).round(2) %></td>
         <td><%= receipt.cost_per_item.round(2) %></td>
         <%= form_button_group do %>
           <%= form_icon receipt, "eye" %>
