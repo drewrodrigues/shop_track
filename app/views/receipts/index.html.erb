@@ -21,7 +21,7 @@
       <th>Quantity Per Item</th>
       <th>Total Quantity</th>
       <th>Price</th>
-      <th>Cost Per Measurement</th>
+      <th>Cost Per 1L/G</th>
       <th>Cost Per Item</th>
       <th colspan="1"></th>
     </tr>
@@ -32,11 +32,11 @@
       <tr>
         <td><%= receipt.kitchen_item_name %></td>
         <td><%= receipt.count %></td>
-        <td><%= receipt.quantity %> <%= receipt.quantity_scale %></td>
-        <td><%= receipt.quantity * receipt.count %> <%= receipt.quantity_scale %></td>
+        <td><%= receipt.quantity.round %> <%= receipt.quantity_scale %></td>
+        <td><%= (receipt.quantity * receipt.count).round %> <%= receipt.quantity_scale %></td>
         <td><%= receipt.price %></td>
-        <td><%= receipt.cost_per_measurement * 1000 %> / 1 L/KG <%= receipt.quantity_scale %></td>
-        <td><%= receipt.cost_per_item %></td>
+        <td><%= (receipt.cost_per_measurement * 1000).round(2) %> <%= receipt.quantity_scale %></td>
+        <td><%= receipt.cost_per_item.round(2) %></td>
         <%= form_button_group do %>
           <%= form_icon receipt, "eye" %>
           <%= form_icon edit_receipt_path(receipt), "pencil" %>
