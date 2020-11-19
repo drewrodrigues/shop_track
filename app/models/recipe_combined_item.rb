@@ -13,7 +13,10 @@ class RecipeCombinedItem < ApplicationRecord
   belongs_to :recipe
   belongs_to :combined
 
-  delegate :cost, to: :combined
   delegate :name, to: :combined
   delegate :quantity_scale, to: :combined
+
+  def cost
+    combined.cost_per_quantity * quantity
+  end
 end

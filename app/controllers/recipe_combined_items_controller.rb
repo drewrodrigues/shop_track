@@ -1,5 +1,5 @@
 class RecipeCombinedItemsController < ApplicationController
-  before_action :set_recipe, only: %i[new, edit]
+  before_action :set_recipe, only: %i[new edit]
   before_action :set_recipe_combined_item, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -43,12 +43,13 @@ class RecipeCombinedItemsController < ApplicationController
   def destroy
     @recipe_combined_item.destroy
     respond_to do |format|
-      format.html { redirect_to recipe_combined_items_url, notice: 'Recipe combined item was successfully destroyed.' }
+      format.html { redirect_to @recipe_combined_item.recipe, notice: 'Recipe combined item was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+
   def set_recipe_combined_item
     @recipe_combined_item = RecipeCombinedItem.find(params[:id])
   end
