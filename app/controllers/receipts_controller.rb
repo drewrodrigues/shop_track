@@ -1,28 +1,18 @@
 class ReceiptsController < ApplicationController
   before_action :set_receipt, only: [:show, :edit, :update, :destroy]
 
-  # GET /receipts
-  # GET /receipts.json
   def index
     @receipts = Receipt.order('created_at DESC').includes(:kitchen_item).all
   end
 
-  # GET /receipts/1
-  # GET /receipts/1.json
-  def show
-  end
+  def show; end
 
-  # GET /receipts/new
   def new
     @receipt = Receipt.new
   end
 
-  # GET /receipts/1/edit
-  def edit
-  end
+  def edit; end
 
-  # POST /receipts
-  # POST /receipts.json
   def create
     @receipt = Receipt.new(receipt_params)
 
@@ -37,8 +27,6 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /receipts/1
-  # PATCH/PUT /receipts/1.json
   def update
     respond_to do |format|
       if @receipt.update(receipt_params)
@@ -51,8 +39,6 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  # DELETE /receipts/1
-  # DELETE /receipts/1.json
   def destroy
     @receipt.destroy
     respond_to do |format|
@@ -62,13 +48,12 @@ class ReceiptsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_receipt
-      @receipt = Receipt.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def receipt_params
-      params.require(:receipt).permit(:kitchen_item_id, :count, :quantity, :price, :quantity_scale)
-    end
+  def set_receipt
+    @receipt = Receipt.find(params[:id])
+  end
+
+  def receipt_params
+    params.require(:receipt).permit(:kitchen_item_id, :count, :quantity, :price, :quantity_scale)
+  end
 end
