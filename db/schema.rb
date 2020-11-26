@@ -61,18 +61,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_134319) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "processed_items", force: :cascade do |t|
-    t.bigint "receipt_id", null: false
-    t.float "converts_to_quantity"
-    t.string "converts_to_scale"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.float "initial_quantity"
-    t.string "initial_scale"
-    t.string "name"
-    t.index ["receipt_id"], name: "index_processed_items_on_receipt_id"
-  end
-
   create_table "receipts", force: :cascade do |t|
     t.bigint "kitchen_item_id", null: false
     t.integer "count"
@@ -105,16 +93,6 @@ ActiveRecord::Schema.define(version: 2020_11_17_134319) do
     t.index ["recipe_id"], name: "index_recipe_items_on_recipe_id"
   end
 
-  create_table "recipe_processed_items", force: :cascade do |t|
-    t.bigint "recipe_id", null: false
-    t.bigint "processed_item_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.float "quantity"
-    t.index ["processed_item_id"], name: "index_recipe_processed_items_on_processed_item_id"
-    t.index ["recipe_id"], name: "index_recipe_processed_items_on_recipe_id"
-  end
-
   create_table "recipes", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -134,13 +112,10 @@ ActiveRecord::Schema.define(version: 2020_11_17_134319) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "combined_items", "combineds"
   add_foreign_key "combined_items", "receipts"
-  add_foreign_key "processed_items", "receipts"
   add_foreign_key "receipts", "kitchen_items"
   add_foreign_key "recipe_combined_items", "combined_items", column: "combined_id"
   add_foreign_key "recipe_combined_items", "recipes"
   add_foreign_key "recipe_items", "receipts"
   add_foreign_key "recipe_items", "recipes"
-  add_foreign_key "recipe_processed_items", "processed_items"
-  add_foreign_key "recipe_processed_items", "recipes"
   add_foreign_key "sales", "recipes"
 end

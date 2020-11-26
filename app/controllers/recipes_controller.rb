@@ -11,9 +11,8 @@ class RecipesController < ApplicationController
   # GET /recipes/1.json
   def show
     @recipe_items = @recipe.recipe_items
-    @recipe_processed_items = @recipe.recipe_processed_items
     @recipe_combined_items = @recipe.recipe_combined_items
-    @items = @recipe_processed_items.to_a + @recipe_items.to_a + @recipe_combined_items.to_a
+    @items = @recipe_items.to_a + @recipe_combined_items.to_a
 
     @total_cost = 0
     @total_quantity = 0
