@@ -10,6 +10,8 @@
 #  pos_fiscal_number :string           not null
 #
 class Sale < ApplicationRecord
+  default_scope { order(pos_datetime: :desc)}
+
   has_many :sale_items, dependent: :destroy
 
   validates :pos_total, presence: true
