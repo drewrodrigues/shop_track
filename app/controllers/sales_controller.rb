@@ -4,7 +4,7 @@ class SalesController < ApplicationController
   # GET /sales
   # GET /sales.json
   def index
-    @sales = Sale.all
+    @sales = Sale.includes(:sale_items).all.order(name: :asc)
     @sale = Sale.new
   end
 

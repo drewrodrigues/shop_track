@@ -10,7 +10,21 @@
 #  pos_fiscal_number :string           not null
 #
 class Sale < ApplicationRecord
-  default_scope { order(pos_datetime: :desc)}
+  def self.uah_per_day
+    Sale.group_by_day(:pos_total).count
+  end
+
+  def self.per_day
+    Sale.group_by_day(:pos_datetime).count
+  end
+
+  def self.per_hour
+    Sale.group_by_hour(:pos_datetime).count.select { |_, v| v.positive?  }
+  end
+
+  def self.per_week
+    Sale.group_by_week(:pos_datetime).count
+  end
 
   has_many :sale_items, dependent: :destroy
 

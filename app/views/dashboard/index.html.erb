@@ -1,0 +1,10 @@
+<h1>Overall</h1>
+<h4>Items Per Day</h4>
+<%= line_chart SaleItem.per_day %>
+
+<h4>UAH Per Day</h4>
+<%= line_chart Sale.group_by_day(:pos_datetime).sum(:pos_total) %>
+
+<h1>Averages</h1>
+
+<%#= line_chart SaleItem.average_sales_per_day %>

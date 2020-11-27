@@ -12,8 +12,12 @@ class Scraper
     login
     go_to_checks
     show_100_results
-    iterate_over_checks(already_created_checks) do |check|
-      create_sale_and_items_from(check)
+
+    loop do
+      iterate_over_checks(already_created_checks) do |check|
+        create_sale_and_items_from(check)
+      end
+      go_to_next_page
     end
   rescue Selenium::WebDriver::Error::ElementNotInteractableError => e
     puts e
@@ -57,8 +61,15 @@ class Scraper
       scroll_to_row(i)
 
       row.find_element(tag_name: 'button').click
-      sleep(5)
+      sleep(1)
       click_open_modal_context_menu
+      product_rows = product_rows_from_modal
+      unless product_rows
+        puts "Didn't find product rows..."
+        driver.save_screenshot("tmp/#{fiscal_number}.png")
+        close_modal
+        next
+      end
       parsed_products = ProductParser.parse(product_rows_from_modal)
       close_modal
       yield datetime: datetime, fiscal_number: fiscal_number, total: total.to_f, items: parsed_products
@@ -67,11 +78,12 @@ class Scraper
 
   def click_open_modal_context_menu
     driver.find_element(class: 'menuable__content__active').click
-    sleep(5)
+    sleep(2)
   end
 
   def product_rows_from_modal
     table_rows = driver.find_elements(css: '.v-dialog tr')[13]
+    return nil unless table_rows
     table_rows.find_elements(tag_name: 'tr')
   end
 
@@ -95,7 +107,7 @@ class Scraper
       check[:items].each { |item| check_item_total += item[:total_cost] }
       if check_item_total != check[:total]
         puts "Oh no, sums don't match up"
-        driver.save_screenshot("#{check[:fiscal_number]}.png")
+        driver.save_screenshot("tmp/#{check[:fiscal_number]}.png")
         raise ActiveRecord::Rollback, "Sums don't match up w/ check_items: #{check_item_total} -- check total: #{check[:total]}"
         next
       end
@@ -119,7 +131,7 @@ class Scraper
     driver.find_elements(css: '.v-input__slot')[5].click
     sleep(2)
     driver.find_elements(css: '.v-list-item')[20].click
-    sleep(5)
+    sleep(2)
   end
 
   def scroll_to_row(number)
@@ -128,6 +140,12 @@ class Scraper
       window.scrollTo(0, gotoY);
     ")
     sleep(2)
+  end
+
+  def go_to_next_page
+    buttons = driver.find_elements(css: '.v-size--default')
+    buttons[buttons.length - 1].click
+    sleep(5)
   end
 end
 

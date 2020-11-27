@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'pg'
 gem 'annotate'
 gem 'selenium-webdriver'
+gem 'groupdate'
+gem "chartkick"
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

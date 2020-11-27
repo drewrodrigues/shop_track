@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  root 'dashboard#index'
   resources :sale_items
-  root 'kitchen_items#index'
 
   resources :combineds do
     resources :combined_items

@@ -1,13 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Recipe:</strong>
-  <%= @sale.recipe_id %>
+  <strong>POS Fiscal Number</strong>
+  <%= @sale.pos_fiscal_number %>
 </p>
 
 <p>
   <strong>Discount percentage:</strong>
-  <%= @sale.discount_percentage %>
+  <th>POS Total</th>
+  <%= @sale.pos_total %>
+</p>
+
+<p>
+  <th>POS Datetime</th>
+  <%= @sale.pos_datetime %>
 </p>
 
 <%= link_to 'Edit', edit_sale_path(@sale) %> |
