@@ -10,7 +10,7 @@
 #  pos_fiscal_number :string           not null
 #
 class Sale < ApplicationRecord
-  has_many :sale_items
+  has_many :sale_items, dependent: :destroy
 
   validates :pos_total, presence: true
   validates :pos_datetime, presence: true

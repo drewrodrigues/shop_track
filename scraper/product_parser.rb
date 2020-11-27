@@ -23,6 +23,6 @@ class ProductParser
       item[:quantity] = product_text[PRODUCT_QUANTITY_REGEXP].to_i
       item[:total_cost] = product_text[PRODUCT_TOTAL_COST_REGEXP].to_f
       item
-    end
+    end.select { |p| p[:name] }
   end
 end

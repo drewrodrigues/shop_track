@@ -6,18 +6,19 @@ require_relative './product_parser'
 
 class Scraper
   def initialize
-    @driver = Selenium::WebDriver.for :chrome
+    arguments = %w[--headless --window-size=1920,1080 --disable-dev-shm-usage]
+    @driver = Selenium::WebDriver.for(:chrome, args: arguments)
+    already_created_checks = Sale.pluck(:pos_fiscal_number)
     login
     go_to_checks
-    iterate_over_checks do |check|
-      sale = Sale.new(
-        pos_datetime: check[:datetime],
-        pos_fiscal_number: check[:fiscal_number],
-        pos_total: check[:total]
-      )
-      sale.save!
-      puts check
+    show_100_results
+    iterate_over_checks(already_created_checks) do |check|
+      create_sale_and_items_from(check)
     end
+  rescue Selenium::WebDriver::Error::ElementNotInteractableError => e
+    puts e
+    driver.save_screenshot("tmp/failure to interact.png")
+    raise e
   end
 
   private
@@ -44,17 +45,23 @@ class Scraper
     sleep(10)
   end
 
-  def iterate_over_checks
+  def iterate_over_checks(already_saved_checks)
     check_rows = driver.find_elements(class: 't-orm-item')
-    check_rows.each do |row|
+    check_rows.each_with_index do |row, i|
       cells = row.find_elements(tag_name: 'td')
       _type, datetime, fiscal_number, total = cells.map(&:text)
+      if already_saved_checks.include?(fiscal_number)
+        puts ">> Skipping, already saved"
+        next
+      end
+      scroll_to_row(i)
+
       row.find_element(tag_name: 'button').click
       sleep(5)
       click_open_modal_context_menu
       parsed_products = ProductParser.parse(product_rows_from_modal)
       close_modal
-      yield datetime: datetime, fiscal_number: fiscal_number, total: total, items: parsed_products
+      yield datetime: datetime, fiscal_number: fiscal_number, total: total.to_f, items: parsed_products
     end
   end
 
@@ -70,6 +77,57 @@ class Scraper
 
   def close_modal
     driver.find_element(class: 't-dialog__close-btn').click
+  end
+
+  def create_sale_and_items_from(check)
+    ActiveRecord::Base.transaction do
+      sale = Sale.new(
+        pos_datetime: check[:datetime],
+        pos_fiscal_number: check[:fiscal_number],
+        pos_total: check[:total]
+      )
+      sale.save!
+      puts "Created 1 sale"
+
+      count = 0
+
+      check_item_total = 0
+      check[:items].each { |item| check_item_total += item[:total_cost] }
+      if check_item_total != check[:total]
+        puts "Oh no, sums don't match up"
+        driver.save_screenshot("#{check[:fiscal_number]}.png")
+        raise ActiveRecord::Rollback, "Sums don't match up w/ check_items: #{check_item_total} -- check total: #{check[:total]}"
+        next
+      end
+
+      check[:items].each do |item|
+        sale_item = SaleItem.new(
+          name: item[:name],
+          discount: item[:discount],
+          quantity: item[:quantity],
+          pos_sum: item[:total_cost],
+          sale_id: sale.id
+        )
+        sale_item.save!
+        count += 1
+      end
+      puts "Created #{count} associated sale_items"
+    end
+  end
+
+  def show_100_results
+    driver.find_elements(css: '.v-input__slot')[5].click
+    sleep(2)
+    driver.find_elements(css: '.v-list-item')[20].click
+    sleep(5)
+  end
+
+  def scroll_to_row(number)
+    driver.execute_script("
+      let gotoY = document.querySelectorAll('.t-orm-item')[#{number}].offsetTop;
+      window.scrollTo(0, gotoY);
+    ")
+    sleep(2)
   end
 end
 

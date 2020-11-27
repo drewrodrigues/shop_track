@@ -9,11 +9,14 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  recipe_id  :bigint
+#  name       :string           not null
+#  discount   :float            not null
 #
 class SaleItem < ApplicationRecord
-  belongs_to :recipe
+  belongs_to :recipe, optional: true
   belongs_to :sale
 
+  validates :quantity, presence: true
   validates :quantity, presence: true
   validate :at_least_1_quantity
 
@@ -24,6 +27,4 @@ class SaleItem < ApplicationRecord
       errors.add(:quantity, 'must be at least 1')
     end
   end
-
-
 end
