@@ -69,7 +69,16 @@ class Scraper
         close_modal
         next
       end
-      parsed_products = ProductParser.parse(product_rows_from_modal)
+
+      begin
+        parsed_products = ProductParser.parse(product_rows_from_modal)
+      rescue => e
+        puts "Error: failed to parse"
+        puts e
+        driver.save_screenshot("tmp/#{fiscal_number}.png")
+        close_modal
+        next
+      end
       close_modal
       yield datetime: datetime, fiscal_number: fiscal_number, total: total.to_f, items: parsed_products
     end
