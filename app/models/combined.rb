@@ -13,7 +13,7 @@ class Combined < ApplicationRecord
   validates :name, presence: true
   validates :quantity, presence: true
 
-  has_many :combined_items
+  has_many :combined_items, dependent: :destroy
 
   def cost
     total = 0
