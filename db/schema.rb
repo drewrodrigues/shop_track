@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_134319) do
+ActiveRecord::Schema.define(version: 2020_11_27_133514) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,13 +100,23 @@ ActiveRecord::Schema.define(version: 2020_11_17_134319) do
     t.float "sale_price"
   end
 
-  create_table "sales", force: :cascade do |t|
-    t.bigint "recipe_id", null: false
-    t.float "discount_percentage"
+  create_table "sale_items", force: :cascade do |t|
+    t.bigint "sale_id", null: false
+    t.float "pos_sum"
+    t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "receipt_number"
-    t.index ["recipe_id"], name: "index_sales_on_recipe_id"
+    t.bigint "recipe_id"
+    t.index ["recipe_id"], name: "index_sale_items_on_recipe_id"
+    t.index ["sale_id"], name: "index_sale_items_on_sale_id"
+  end
+
+  create_table "sales", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "pos_datetime", null: false
+    t.float "pos_total", null: false
+    t.string "pos_fiscal_number", null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
@@ -117,5 +127,5 @@ ActiveRecord::Schema.define(version: 2020_11_17_134319) do
   add_foreign_key "recipe_combined_items", "recipes"
   add_foreign_key "recipe_items", "receipts"
   add_foreign_key "recipe_items", "recipes"
-  add_foreign_key "sales", "recipes"
+  add_foreign_key "sale_items", "sales"
 end

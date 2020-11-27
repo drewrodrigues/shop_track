@@ -1,6 +1,7 @@
 require "selenium-webdriver"
 require 'byebug'
 
+require_relative '../config/environment'
 require_relative './product_parser'
 
 class Scraper
@@ -9,6 +10,12 @@ class Scraper
     login
     go_to_checks
     iterate_over_checks do |check|
+      sale = Sale.new(
+        pos_datetime: check[:datetime],
+        pos_fiscal_number: check[:fiscal_number],
+        pos_total: check[:total]
+      )
+      sale.save!
       puts check
     end
   end
@@ -41,13 +48,13 @@ class Scraper
     check_rows = driver.find_elements(class: 't-orm-item')
     check_rows.each do |row|
       cells = row.find_elements(tag_name: 'td')
-      _type, datetime, fiscal_number, sum = cells.map(&:text)
+      _type, datetime, fiscal_number, total = cells.map(&:text)
       row.find_element(tag_name: 'button').click
       sleep(5)
       click_open_modal_context_menu
       parsed_products = ProductParser.parse(product_rows_from_modal)
       close_modal
-      yield datetime: datetime, fiscal_number: fiscal_number, sum: sum, items: parsed_products
+      yield datetime: datetime, fiscal_number: fiscal_number, total: total, items: parsed_products
     end
   end
 

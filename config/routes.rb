@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :sale_items
   root 'kitchen_items#index'
 
   resources :combineds do
