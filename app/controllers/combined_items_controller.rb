@@ -1,5 +1,5 @@
 class CombinedItemsController < ApplicationController
-  before_action :set_combined, only: :new
+  before_action :set_combined, only: [:new, :edit]
   before_action :set_combined_item, only: %i[show edit update destroy]
 
   def index

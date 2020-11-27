@@ -29,6 +29,12 @@
         <td>
           <%= item.cost_per_measurement %>
         </td>
+        <td>
+          <%= link_to 'Edit', edit_combined_combined_item_path(@combined, item) %>
+        </td>
+        <td>
+          <%= link_to 'Destroy', combined_combined_item_path(@combined, item), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </table>
