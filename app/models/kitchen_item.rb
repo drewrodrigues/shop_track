@@ -8,4 +8,5 @@
 #  updated_at :datetime         not null
 #
 class KitchenItem < ApplicationRecord
+  default_scope { order(name: :asc) }
 end

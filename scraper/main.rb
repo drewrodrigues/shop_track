@@ -1,5 +1,4 @@
 require "selenium-webdriver"
-require 'byebug'
 
 require_relative '../config/environment'
 require_relative './product_parser'
