@@ -86,7 +86,7 @@ class Scraper
 
   def click_open_modal_context_menu
     driver.find_element(class: 'menuable__content__active').click
-    sleep(2)
+    sleep(5)
   end
 
   def product_rows_from_modal
@@ -137,9 +137,9 @@ class Scraper
 
   def show_100_results
     driver.find_elements(css: '.v-input__slot')[5].click
-    sleep(2)
+    sleep(5)
     driver.find_elements(css: '.v-list-item')[20].click
-    sleep(2)
+    sleep(5)
   end
 
   def scroll_to_row(number)
@@ -147,7 +147,7 @@ class Scraper
       let gotoY = document.querySelectorAll('.t-orm-item')[#{number}].offsetTop;
       window.scrollTo(0, gotoY);
     ")
-    sleep(2)
+    sleep(5)
   end
 
   def go_to_next_page
