@@ -26,6 +26,12 @@ class Sale < ApplicationRecord
     Sale.group_by_week(:pos_datetime).count
   end
 
+  def self.average_sale_during_time
+    total_hours = Sale.group_by_day(:pos_datetime).count.length / 8
+    sales_per_day = SaleItem.joins(:sale).group_by_hour_of_day(:pos_datetime, series: false).count
+    sales_per_day.map {|k, v| [k, v / total_hours]}.to_h.reject {|k, v| v < 1}
+  end
+
   has_many :sale_items, dependent: :destroy
 
   validates :pos_total, presence: true
