@@ -1,4 +1,8 @@
 <h1>Overall</h1>
+
+<h2>Total Sales: <%= Sale.sum(:pos_total) %></h2>
+<h2>Total Drinks Sold: <%= SaleItem.sum(:quantity) %></h2>
+
 <h4>Items Per Day</h4>
 <%= line_chart SaleItem.per_day %>
 
