@@ -88,3 +88,15 @@ input:checked + img {
   box-sizing: border-box;
   width: 100%;
 }
+
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 50px;
+}
+
+.chart {
+  margin-bottom: 5%;
+  width: 45%;
+}

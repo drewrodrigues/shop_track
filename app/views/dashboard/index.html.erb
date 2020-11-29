@@ -1,14 +1,64 @@
-<h1>Overall</h1>
+<div class="ui statistics">
+  <div class="statistic">
+    <div class="value">
+      <%= Sale.sum(:pos_total).to_i %>
+    </div>
+    <div class="label">
+      Total Sales
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.average_drinks_sold_per_day %>
+    </div>
+    <div class="label">
+      Avg Drinks Sold Per Day
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= Sale.average(:pos_total).to_i %>
+    </div>
+    <div class="label">
+      Avg Sale Value
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.sum(:quantity) %>
+    </div>
+    <div class="label">
+      Total Drinks Sold
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.joins(:sale).group_by_day(:pos_datetime).count(:name).values.max %>
+    </div>
+    <div class="label">
+      Most Drinks Sold
+    </div>
+  </div>
+</div>
 
-<h2>Total Sales: <%= Sale.sum(:pos_total) %></h2>
-<h2>Total Drinks Sold: <%= SaleItem.sum(:quantity) %></h2>
+<main class="charts">
+  <div class="chart">
+    <h4>Sales During Time</h4>
+    <%= column_chart Sale.group_by_hour_of_day(:pos_datetime).count %>
+  </div>
 
-<h4>Items Per Day</h4>
-<%= line_chart SaleItem.per_day %>
+  <div class="chart">
+    <h4>Sales Per Month</h4>
+    <%= line_chart Sale.group_by_month(:pos_datetime).sum(:pos_total) %>
+  </div>
 
-<h4>UAH Per Day</h4>
-<%= line_chart Sale.group_by_day(:pos_datetime).sum(:pos_total) %>
+  <div class="chart">
+    <h4>UAH Per Day</h4>
+    <%= line_chart Sale.group_by_day(:pos_datetime).sum(:pos_total) %>
+  </div>
 
-<h1>Averages</h1>
-
-<%#= line_chart SaleItem.average_sales_per_day %>
+  <div class="chart">
+    <h4>Average Sales Per Day</h4>
+    <%= column_chart SaleItem.average_per_day_of_week %>
+  </div>
+</main>

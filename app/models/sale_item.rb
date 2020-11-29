@@ -25,6 +25,22 @@ class SaleItem < ApplicationRecord
     SaleItem.joins(:sale).group_by_day_of_week('sales.pos_datetime').count.select { |_, v| v.positive? }
   end
 
+  def self.average_per_day_of_week
+    approx_weeks = Sale.group_by_day(:pos_datetime).count.length / 7
+    total_per_day = SaleItem.joins(:sale).group_by_day_of_week(:pos_datetime, format: '%a', week_start: :mon).count
+    total_per_day.map {|k, v| [k, v / approx_weeks]}.to_h
+  end
+
+  def self.average_drinks_sold_per_day
+    sales_per_day = SaleItem.joins(:sale).group_by_day(:pos_datetime).count(:name).values
+    sales_per_day.reduce(:+) / sales_per_day.length
+  end
+
+  def self.sales_per_month
+    sales_per_day = Sale.group_by_month(:pos_datetime).count(:name).values
+    sales_per_day.reduce(:+) / sales_per_day.length
+  end
+
   # def self.average_sales_per_day
   #   SaleItem.joins(:sale).group_by_day_of_week('sales.pos_datetime').average("sales.pos_datetime")
   # end
