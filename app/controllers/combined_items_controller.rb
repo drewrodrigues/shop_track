@@ -16,12 +16,19 @@ class CombinedItemsController < ApplicationController
 
   def create
     @combined_item = CombinedItem.new(combined_item_params)
+    if params[:receipt_id] != ""
+      itemable = Receipt.find(params[:receipt_id])
+    else
+      itemable = Combined.find(params[:combined_record_id])
+    end
+    @combined_item.itemable = itemable
 
     respond_to do |format|
       if @combined_item.save
         format.html { redirect_to @combined_item.combined, notice: 'Combined item was successfully created.' }
         format.json { render :show, status: :created, location: @combined_item }
       else
+        set_combined
         format.html { render :new }
         format.json { render json: @combined_item.errors, status: :unprocessable_entity }
       end
@@ -55,7 +62,7 @@ class CombinedItemsController < ApplicationController
   end
 
   def combined_item_params
-    params.require(:combined_item).permit(:receipt_id, :quantity, :quantity_scale, :combined_id)
+    params.require(:combined_item).permit(:receipt_id, :quantity, :quantity_scale, :combined_id, :combined_record_id)
   end
 
   def set_combined

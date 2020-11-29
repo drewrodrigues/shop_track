@@ -12,8 +12,13 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :receipt_id %>
-    <%= form.select :receipt_id, options_for_receipt_and_kitchen_item %>
+    <%= label_tag :receipt_id %>
+    <%= select_tag :receipt_id, options_for_select(options_for_receipt_and_kitchen_item), include_blank: true %>
+
+    <p>-- or --</p>
+
+    <%= label_tag :combined_record_id %>
+    <%= select_tag :combined_record_id, options_for_select(options_for_combined_itemable), include_blank: true %>
   </div>
 
   <div class="field">

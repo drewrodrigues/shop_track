@@ -22,7 +22,7 @@ class CombinedItem < ApplicationRecord
     if itemable_type == 'Receipt'
       quantity * itemable.cost_per_measurement
     elsif itemable_type == 'Combined'
-      quantity * itemable_type.cost_per_quantity
+      quantity * itemable.cost_per_quantity
     else
       raise "Can't use this type"
     end
@@ -33,7 +33,7 @@ class CombinedItem < ApplicationRecord
       itemable.cost_per_measurement
     elsif itemable_type == 'Combined'
       # TODO: make this naming convention the same for duck typing
-      itemable_type.cost_per_quantity
+      itemable.cost_per_quantity
     else
       raise "Can't use this type"
     end

@@ -4,8 +4,14 @@ module ApplicationHelper
   end
 
   def options_for_receipt_and_kitchen_item
-    Receipt.includes(:kitchen_item).map do |receipt|
+    Receipt.includes(:kitchen_item).all.map do |receipt|
       ["#{receipt.kitchen_item.name}, priced at #{receipt.cost_per_item} per item", receipt.id]
+    end
+  end
+
+  def options_for_combined_itemable
+    Combined.all.map do |combined|
+      ["#{combined.name} @ #{combined.cost_per_quantity}", combined.id]
     end
   end
 

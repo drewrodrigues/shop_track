@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_29_211415) do
+ActiveRecord::Schema.define(version: 2020_11_29_220708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,15 +37,15 @@ ActiveRecord::Schema.define(version: 2020_11_29_211415) do
   end
 
   create_table "combined_items", force: :cascade do |t|
-    t.bigint "receipt_id", null: false
+    t.bigint "receipt_id"
     t.float "quantity"
     t.string "quantity_scale"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "combined_id_id"
+    t.bigint "combined_id"
     t.string "itemable_type"
     t.bigint "itemable_id"
-    t.index ["combined_id_id"], name: "index_combined_items_on_combined_id_id"
+    t.index ["combined_id"], name: "index_combined_items_on_combined_id"
     t.index ["itemable_type", "itemable_id"], name: "index_combined_items_on_itemable_type_and_itemable_id"
     t.index ["receipt_id"], name: "index_combined_items_on_receipt_id"
   end
