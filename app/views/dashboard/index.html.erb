@@ -43,13 +43,8 @@
 
 <main class="charts">
   <div class="chart">
-    <h4>Sales During Time</h4>
-    <%= column_chart Sale.group_by_hour_of_day(:pos_datetime, series: false).count %>
-  </div>
-
-  <div class="chart">
-    <h4>Sales Per Month</h4>
-    <%= line_chart Sale.group_by_month(:pos_datetime).sum(:pos_total) %>
+    <h4>Average Sales Per Day</h4>
+    <%= column_chart SaleItem.average_per_day_of_week %>
   </div>
 
   <div class="chart">
@@ -58,7 +53,12 @@
   </div>
 
   <div class="chart">
-    <h4>Average Sales Per Day</h4>
-    <%= column_chart SaleItem.average_per_day_of_week %>
+    <h4>Sales Per Month</h4>
+    <%= line_chart Sale.group_by_month(:pos_datetime).sum(:pos_total) %>
+  </div>
+
+  <div class="chart">
+    <h4>Sales During Time</h4>
+    <%= column_chart Sale.group_by_hour_of_day(:pos_datetime, series: false).count %>
   </div>
 </main>
