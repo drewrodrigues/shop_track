@@ -6,20 +6,36 @@
 #  receipt_id     :bigint           not null
 #  quantity       :float
 #  quantity_scale :string
-#  combined_id    :bigint           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  combined_id_id :bigint
+#  itemable_type  :string
+#  itemable_id    :bigint
 #
 class CombinedItem < ApplicationRecord
-  belongs_to :receipt
+  belongs_to :itemable, polymorphic: true
   belongs_to :combined
 
-  has_one :kitchen_item, through: :receipt
-
-  delegate :name, to: :receipt
-  delegate :cost_per_measurement, to: :receipt
+  delegate :name, to: :itemable
 
   def cost
-    quantity * cost_per_measurement
+    if itemable_type == 'Receipt'
+      quantity * itemable.cost_per_measurement
+    elsif itemable_type == 'Combined'
+      quantity * itemable_type.cost_per_quantity
+    else
+      raise "Can't use this type"
+    end
+  end
+
+  def cost_per_measurement
+    if itemable_type == 'Receipt'
+      itemable.cost_per_measurement
+    elsif itemable_type == 'Combined'
+      # TODO: make this naming convention the same for duck typing
+      itemable_type.cost_per_quantity
+    else
+      raise "Can't use this type"
+    end
   end
 end

@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #  recipe_id  :bigint
 #  name       :string           not null
-#  discount   :float            not null
+#  discount   :float
 #
 class SaleItem < ApplicationRecord
   def self.per_day
