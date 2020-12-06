@@ -71,7 +71,7 @@ class Scraper
       end
 
       begin
-        parsed_products = ProductParser.parse(product_rows_from_modal)
+        parsed_products = ProductParser.parse(product_rows)
       rescue => e
         puts "Error: failed to parse"
         puts e
@@ -91,8 +91,44 @@ class Scraper
 
   def product_rows_from_modal
     products_rows = driver.find_element(css: '.v-dialog').text.split("\n")
-    products = products_rows.select {|p| p[/^\w+. /]}
-    (products.nil? || products.empty?) ? nil : products
+
+    left_constraint = nil
+    right_constraint = nil
+
+    while !left_constraint && !right_constraint
+      products_rows.each_with_index do |row, i|
+        if row.include?('*')
+          if !left_constraint
+            left_constraint = i + 1
+          elsif !right_constraint
+            right_constraint = i
+          end
+        end
+      end
+    end
+
+    products = products_rows[left_constraint...right_constraint]
+
+    checkbox_is_trash = products_rows.any? {|p| p[/\w+ .* [0-9]+\.[0-9]+ [0-9]+\.[0-9]+$/]}
+    parsed_products = []
+    if checkbox_is_trash
+      until products.empty?
+        parsed_products << products.shift(2).join(' ')
+      end
+    else
+      parsed_products = products
+    end
+
+    puts "---products_rows---"
+    puts products_rows
+    puts "\n"
+    puts "---products---"
+    puts products
+    puts "\n"
+    puts "---parsed_products---"
+    puts parsed_products
+    puts "\n\n\n\n"
+    (parsed_products.nil? || parsed_products.empty?) ? nil : parsed_products
   end
 
   def close_modal
