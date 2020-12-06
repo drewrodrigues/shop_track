@@ -115,3 +115,7 @@ input:checked + img {
   padding: 0;
   font-size: 12px;
 }
+
+ul {
+  margin: 0;
+}

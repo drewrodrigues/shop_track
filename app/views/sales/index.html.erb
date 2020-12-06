@@ -4,28 +4,23 @@
 
 <div class="ui horizontal divider">Items</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>POS Fiscal Number</th>
-      <th>POS Total</th>
-      <th>POS Datetime</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sales.each do |sale| %>
-      <tr>
-        <td><%= sale.pos_fiscal_number %></td>
-        <td><%= sale.pos_total %></td>
-        <td><%= sale.pos_datetime %></td>
-        <td><%= link_to 'Show', sale %></td>
-        <td><%= link_to 'Edit', edit_sale_path(sale) %></td>
-        <td><%= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% @sales.each do |sale| %>
+  <div class="sale">
+    <div class="sale__header">
+      <span>Total: <%= sale.pos_total %></span>
+      <span><%= sale.pos_fiscal_number %></span>
+      <span><%= sale.pos_datetime %></span>
+  <!--      <button><%#= link_to 'Show', sale %></button>-->
+  <!--      <button><%#= link_to 'Edit', edit_sale_path(sale) %></button>-->
+  <!--      <button><%#= link_to 'Destroy', sale, method: :delete, data: { confirm: 'Are you sure?' } %></button>-->
+    </div>
+    <ul>
+      <% sale.sale_items.each do |item| %>
+        <li><b><%= item.quantity %> x</b> <%= item.name %> @ <%= item.pos_sum %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <br>
 
