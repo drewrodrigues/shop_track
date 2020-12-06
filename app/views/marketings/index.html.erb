@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Marketings</h1>
+
+<%= line_chart @chart_data, colors: ['green', '#ccc'] %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date used</th>
+      <th>Quantity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @marketings.each do |marketing| %>
+      <tr>
+        <td><%= marketing.date_used %></td>
+        <td><%= marketing.quantity %></td>
+        <td><%= link_to 'Show', marketing %></td>
+        <td><%= link_to 'Edit', edit_marketing_path(marketing) %></td>
+        <td><%= link_to 'Destroy', marketing, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Marketing', new_marketing_path %>

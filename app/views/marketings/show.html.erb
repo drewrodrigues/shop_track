@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date used:</strong>
+  <%= @marketing.date_used %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @marketing.quantity %>
+</p>
+
+<%= link_to 'Edit', edit_marketing_path(@marketing) %> |
+<%= link_to 'Back', marketings_path %>
