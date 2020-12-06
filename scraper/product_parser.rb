@@ -8,7 +8,7 @@ class ProductParser
     product_rows.map do |product_text|
       item = {}
       item[:name] = product_text[PRODUCT_NAME_REGEXP]
-      raise "Name is probably wrong: #{item[:name]} with count of #{item[:name].length}" if item[:name].length < 18
+      raise "Name is probably wrong: #{item[:name]} with count of #{item[:name].length}" if item[:name] && item[:name].length < 18
 
       found_discount = product_text[PRODUCT_DISCOUNT_REGEXP]
       item[:discount] = found_discount ? found_discount.to_f / 100 : nil

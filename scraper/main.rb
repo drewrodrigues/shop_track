@@ -90,7 +90,8 @@ class Scraper
   end
 
   def product_rows_from_modal
-    products = driver.find_element(css: '.v-dialog').text.split("\n")[5...-9]
+    products_rows = driver.find_element(css: '.v-dialog').text.split("\n")
+    products = products_rows.select {|p| p[/^\w+. /]}
     (products.nil? || products.empty?) ? nil : products
   end
 
