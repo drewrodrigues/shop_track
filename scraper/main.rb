@@ -90,20 +90,8 @@ class Scraper
   end
 
   def product_rows_from_modal
-    table_rows = nil
-    product_rows = []
-
-    product_row_in_ui = 13
-    until (table_rows && !product_rows.empty?) || product_row_in_ui == 15
-      # we want to try row 13 and 14 then quit (14 being old sales)
-      table_rows = driver.find_elements(css: '.v-dialog tr')[product_row_in_ui]
-
-      unless table_rows.nil?
-        product_rows = table_rows.find_elements(tag_name: 'tr')
-      end
-      product_row_in_ui += 1
-    end
-    (product_rows.nil? || product_rows.empty?) ? nil : product_rows
+    products = driver.find_element(css: '.v-dialog').text.split("\n")[5...-9]
+    (products.nil? || products.empty?) ? nil : products
   end
 
   def close_modal
