@@ -4,8 +4,7 @@ class SalesController < ApplicationController
   # GET /sales
   # GET /sales.json
   def index
-    @sales = Sale.includes(:sale_items).all.order(name: :asc)
-    @sale = Sale.new
+    @sales = Sale.includes(:sale_items).all.order(pos_datetime: :desc)
   end
 
   # GET /sales/1
