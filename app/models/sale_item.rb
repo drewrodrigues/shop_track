@@ -32,8 +32,8 @@ class SaleItem < ApplicationRecord
   end
 
   def self.average_per_day_in_last_days(num)
-    items = SaleItem.joins(:sale).where('pos_datetime > ?', num.days.ago)
-    items.length / num
+    total_items = SaleItem.joins(:sale).where('pos_datetime > ?', num.days.ago).sum(:quantity)
+    total_items / num
   end
 
   def self.average_drinks_sold_per_day
