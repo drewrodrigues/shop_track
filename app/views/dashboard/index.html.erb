@@ -1,3 +1,82 @@
+<h2>The last 7 days</h2>
+<div class="ui statistics">
+  <div class="statistic">
+    <div class="value">
+      <%= Sale.amount_in_last_days(7).to_i %>
+    </div>
+    <div class="label">
+      Total Sales
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.average_per_day_in_last_days(7) %>
+    </div>
+    <div class="label">
+      Average Drinks Sold Per Day
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.joins(:sale).where('pos_datetime > ?', 7.days.ago).sum(:quantity) %>
+    </div>
+    <div class="label">
+      Total Drinks Sold
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.joins(:sale).group_by_day(:pos_datetime).where('pos_datetime > ?', 7.days.ago).count(:name).values.max %>
+    </div>
+    <div class="label">
+      Most Drinks Sold
+    </div>
+  </div>
+</div>
+
+<h2>The last 30 days</h2>
+<div class="ui statistics">
+  <div class="statistic">
+    <div class="value">
+      <%= Sale.amount_in_last_days(30).to_i %>
+    </div>
+    <div class="label">
+      Total Sales
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.average_per_day_in_last_days(30) %>
+    </div>
+    <div class="label">
+      Average Drinks Sold Per Day
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.joins(:sale).where('pos_datetime > ?', 30.days.ago).sum(:quantity) %>
+    </div>
+    <div class="label">
+      Total Drinks Sold
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= SaleItem.joins(:sale).group_by_day(:pos_datetime).where('pos_datetime > ?', 30.days.ago).count(:name).values.max %>
+    </div>
+    <div class="label">
+      Most Drinks Sold
+    </div>
+  </div>
+</div>
+
+<h2>Overall</h2>
 <div class="ui statistics">
   <div class="statistic">
     <div class="value">

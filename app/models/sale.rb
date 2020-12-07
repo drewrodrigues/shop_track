@@ -10,6 +10,10 @@
 #  pos_fiscal_number :string           not null
 #
 class Sale < ApplicationRecord
+  def self.amount_in_last_days(num)
+    Sale.where('pos_datetime > ?', num.days.ago).sum(:pos_total)
+  end
+
   def self.uah_per_day
     Sale.group_by_day(:pos_total).count
   end

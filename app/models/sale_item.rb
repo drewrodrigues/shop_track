@@ -31,6 +31,11 @@ class SaleItem < ApplicationRecord
     total_per_day.map {|k, v| [k, v / approx_weeks]}.to_h
   end
 
+  def self.average_per_day_in_last_days(num)
+    items = SaleItem.joins(:sale).where('pos_datetime > ?', num.days.ago)
+    items.length / num
+  end
+
   def self.average_drinks_sold_per_day
     sales_per_day = SaleItem.joins(:sale).group_by_day(:pos_datetime).count(:name).values
     sales_per_day.reduce(:+) / sales_per_day.length
