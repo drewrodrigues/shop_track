@@ -90,12 +90,14 @@
       <td class="right-align"><%= link_to 'Edit', edit_path_for_nested_resource(recipe_item.recipe, recipe_item) %></td>
       <td class="right-align"><%= link_to 'Destroy', [recipe_item.recipe, recipe_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
-    <% recipe_item.items_with_costs.each do |item| %>
-      <tr style="background: #ccc">
-        <td><%= item[:name] %></td>
-        <td class="right-align"><%= item[:quantity] %></td>
-        <td class="right-align"><%= item[:cost] %></td>
-      </tr>
+    <% if recipe_item.respond_to?(:items_with_costs) %>
+      <% recipe_item.items_with_costs.each do |item| %>
+        <tr style="background: #ccc">
+          <td><%= item[:name] %></td>
+          <td class="right-align"><%= item[:quantity] %></td>
+          <td class="right-align"><%= item[:cost] %></td>
+        </tr>
+      <% end %>
     <% end %>
   <% end %>
   </tbody>
