@@ -119,3 +119,7 @@ input:checked + img {
 ul {
   margin: 0;
 }
+
+.right-align {
+  text-align: right !important;
+}

@@ -84,12 +84,19 @@
   <% @items.each do |recipe_item| %>
     <tr>
       <td><%= recipe_item.name %></td>
-      <td><%= recipe_item.quantity %> <%= recipe_item.quantity_scale %></td>
-      <td><%= recipe_item.cost %></td>
-      <td><%= link_to 'Show', [recipe_item.recipe, recipe_item] %></td>
-      <td><%= link_to 'Edit', edit_path_for_nested_resource(recipe_item.recipe, recipe_item) %></td>
-      <td><%= link_to 'Destroy', [recipe_item.recipe, recipe_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <td class="right-align"><%= recipe_item.quantity %> <%= recipe_item.quantity_scale %></td>
+      <td class="right-align"><%= recipe_item.cost.round(2) %></td>
+      <td class="right-align"><%= link_to 'Show', [recipe_item.recipe, recipe_item] %></td>
+      <td class="right-align"><%= link_to 'Edit', edit_path_for_nested_resource(recipe_item.recipe, recipe_item) %></td>
+      <td class="right-align"><%= link_to 'Destroy', [recipe_item.recipe, recipe_item], method: :delete, data: { confirm: 'Are you sure?' } %></td>
     </tr>
+    <% recipe_item.items_with_costs.each do |item| %>
+      <tr style="background: #ccc">
+        <td><%= item[:name] %></td>
+        <td class="right-align"><%= item[:quantity] %></td>
+        <td class="right-align"><%= item[:cost] %></td>
+      </tr>
+    <% end %>
   <% end %>
   </tbody>
 </table>
