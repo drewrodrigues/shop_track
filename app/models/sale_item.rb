@@ -50,6 +50,32 @@ class SaleItem < ApplicationRecord
   #   SaleItem.joins(:sale).group_by_day_of_week('sales.pos_datetime').average("sales.pos_datetime")
   # end
 
+  def self.drinks_with_total
+    drinks = [
+      'matcha cream',
+      'mango cream',
+      'thai coco',
+      'strawberry cheesecake',
+      'dirty horchata',
+      'brown sugar milk tea',
+      'milk oolong',
+      'black milk',
+      'plant milk'
+    ]
+    counts = Hash.new(0)
+
+    SaleItem.all.each do |item|
+      matched_drink = drinks.find { |drink| item.name.downcase.include?(drink) }
+      if matched_drink
+        counts[matched_drink] += 1
+      else
+        counts[item.name] += 1
+      end
+    end
+
+    counts
+  end
+
   belongs_to :recipe, optional: true
   belongs_to :sale
 

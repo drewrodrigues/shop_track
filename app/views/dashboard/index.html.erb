@@ -141,3 +141,5 @@
     <%= column_chart Sale.average_sale_during_time %>
   </div>
 </main>
+
+<%= column_chart @drink_with_total.to_a.sort {|a, b| b[1] <=> a[1]} %>
