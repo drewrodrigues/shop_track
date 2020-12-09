@@ -10,9 +10,10 @@
 #
 class Recipe < ApplicationRecord
   has_one_attached :photo
-  has_many :recipe_items
-  has_many :recipe_combined_items
+  has_many :recipe_items, dependent: :destroy
+  has_many :recipe_combined_items, dependent: :destroy
 
+  validates :name, presence: true, uniqueness: true
   validates :sale_price, presence: true
 
   def total_cost

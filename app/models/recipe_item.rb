@@ -16,6 +16,8 @@ class RecipeItem < ApplicationRecord
 
   delegate :name, to: :receipt
 
+  validates :quantity, presence: true
+
   def cost
     receipt.cost_per_measurement * quantity
   end

@@ -16,6 +16,9 @@ class Receipt < ApplicationRecord
 
   delegate :name, to: :kitchen_item, prefix: true
 
+  validates :quantity, presence: true
+  validates :price, presence: true
+
   def cost_per_item
     price / count
   end
