@@ -4,7 +4,15 @@ require_relative '../config/environment'
 require_relative './product_parser'
 
 class Scraper
+  attr_reader :logger
+
   def initialize
+    @logger = Logger.new('scraper.log', 'daily')
+    logger.formatter = proc do |severity, datetime, progname, msg|
+      "#{datetime}: #{msg}\n"
+    end
+    logger.info "Started scraper"
+
     arguments = %w[--headless --window-size=1920,1080 --disable-dev-shm-usage]
     @driver = Selenium::WebDriver.for(:chrome, args: arguments)
     already_created_checks = Sale.pluck(:pos_fiscal_number)
@@ -21,6 +29,7 @@ class Scraper
   rescue Selenium::WebDriver::Error::ElementNotInteractableError => e
     puts e
     driver.save_screenshot("tmp/failure to interact.png")
+    logger.error e
     raise e
   end
 
@@ -53,32 +62,37 @@ class Scraper
     check_rows.each_with_index do |row, i|
       cells = row.find_elements(tag_name: 'td')
       _type, datetime, fiscal_number, total = cells.map(&:text)
-      if already_saved_checks.include?(fiscal_number)
-        puts ">> Skipping, already saved"
+      if already_saved_checks.include?(fiscal_number) || _type === 'Службова видача'
+        logger.info ">> Skipping, already saved: #{fiscal_number} - #{_type}"
         next
       end
       scroll_to_row(i)
 
+      logger.info "Clicking receipt row button"
       row.find_element(tag_name: 'button').click
       sleep(1)
+      logger.info "Opening and clicking context menu"
       click_open_modal_context_menu
+      logger.info "Getting product rows from modal"
       product_rows = product_rows_from_modal
       unless product_rows
-        puts "Didn't find product rows..."
+        logger.info "Didn't find product rows..."
         driver.save_screenshot("tmp/#{fiscal_number}.png")
         close_modal
         next
       end
 
       begin
+        logger.info "Parsing product rows"
         parsed_products = ProductParser.parse(product_rows)
       rescue => e
-        puts "Error: failed to parse"
-        puts e
+        logger.info "Error: failed to parse"
+        logger.info e
         driver.save_screenshot("tmp/#{fiscal_number}.png")
         close_modal
         next
       end
+      logger.info "Closing modal"
       close_modal
       yield datetime: datetime, fiscal_number: fiscal_number, total: total.to_f, items: parsed_products
     end
@@ -86,17 +100,26 @@ class Scraper
 
   def click_open_modal_context_menu
     driver.find_element(class: 'menuable__content__active').click
-    sleep(5)
+    sleep(2)
   end
 
   def product_rows_from_modal
     products_rows = driver.find_element(css: '.v-dialog').text.split("\n")
 
+    logger.info "---products_rows---"
+    logger.info products_rows
+    logger.info "\n"
+
     left_constraint = nil
     right_constraint = nil
 
-    while !left_constraint && !right_constraint
+    can_find_products = products_rows.count { |r| r.include?('*') } == 2
+
+    while (!left_constraint && !right_constraint) && can_find_products
+      logger.info "Left constraint: #{left_constraint}"
+      logger.info "Right constraint: #{right_constraint}"
       products_rows.each_with_index do |row, i|
+        logger.info "Row: #{row}"
         if row.include?('*')
           if !left_constraint
             left_constraint = i + 1
@@ -107,27 +130,23 @@ class Scraper
       end
     end
 
-    products = products_rows[left_constraint...right_constraint]
+    products_rows = (left_constraint && right_constraint) ? products_rows[left_constraint...right_constraint] : nil
 
-    checkbox_is_trash = products_rows.any? {|p| p[/\w+ .* [0-9]+\.[0-9]+ [0-9]+\.[0-9]+$/]}
+    checkbox_is_trash = products_rows&.any? {|p| p[/^\w+ .* [0-9]+\.[0-9]+ [0-9]+\.[0-9]+$/]}
     parsed_products = []
     if checkbox_is_trash
-      until products.empty?
-        parsed_products << products.shift(2).join(' ')
+      logger.info "Checkbox is trash, joining multiple lines"
+      until products_rows.empty?
+        logger.info "-- line"
+        parsed_products << products_rows.shift(2).join(' ')
       end
     else
-      parsed_products = products
+      parsed_products = products_rows
     end
 
-    puts "---products_rows---"
-    puts products_rows
-    puts "\n"
-    puts "---products---"
-    puts products
-    puts "\n"
-    puts "---parsed_products---"
-    puts parsed_products
-    puts "\n\n\n\n"
+    logger.info "---parsed_products---"
+    logger.info parsed_products
+    logger.info "\n\n\n\n"
     (parsed_products.nil? || parsed_products.empty?) ? nil : parsed_products
   end
 
@@ -147,14 +166,14 @@ class Scraper
       check[:items].each { |item| check_item_total += item[:total_cost] }
 
       if check_item_total != check[:total]
-        puts "Oh no, sums don't match up"
+        logger.info "Oh no, sums don't match up"
         driver.save_screenshot("tmp/#{check[:fiscal_number]}.png")
         raise ActiveRecord::Rollback, "Sums don't match up w/ check_items: #{check_item_total} -- check total: #{check[:total]}"
         next
       end
 
       sale.save!
-      puts "Created 1 sale"
+      logger.info "Created 1 sale"
 
       count = 0
 
@@ -170,7 +189,7 @@ class Scraper
         count += 1
       end
 
-      puts "Created #{count} associated sale_items"
+      logger.info "Created #{count} associated sale_items"
     end
   end
 
