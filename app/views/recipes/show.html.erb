@@ -19,7 +19,7 @@
       <div class="ui statistic">
         <div class="value">
           <i aria-hidden="true" class="gulp icon"></i>
-          <%= @total_quantity %> <%= @recipe.recipe_items[0]&.quantity_scale %>
+          <%= @total_quantity.to_i %> <%= @recipe.recipe_items[0]&.quantity_scale %>
         </div>
         <div class="label">
           Total Volume
@@ -29,7 +29,7 @@
       <div class="ui statistic">
         <div class="value">
           <i aria-hidden="true" class="angle double down icon"></i>
-          <%= @total_cost %>
+          <%= @total_cost.to_i %>
         </div>
         <div class="label">Total Cost</div>
       </div>
@@ -38,7 +38,7 @@
         <div class="ui statistic">
           <div class="value">
             <i aria-hidden="true" class="money bill alternate outline icon"></i>
-            <%= @recipe.sale_price %>
+            <%= @recipe.sale_price.to_i %>
           </div>
           <div class="label">Sale Price</div>
         </div>
@@ -46,13 +46,13 @@
         <div class="ui statistic">
           <div class="value">
             <i aria-hidden="true" class="angle double up icon"></i>
-            <%= @recipe.sale_price - @total_cost %>
+            <%= (@recipe.sale_price - @total_cost).to_i %>
           </div>
           <div class="label">Profit</div>
         </div>
 
         <div class="ui statistic">
-          <div class="value"><%= (@recipe.sale_price - @total_cost) / @recipe.sale_price * 100 %>%</div>
+          <div class="value"><%= ((@recipe.sale_price - @total_cost) / @recipe.sale_price * 100).to_i %>%</div>
           <div class="label">Margin</div>
         </div>
 
