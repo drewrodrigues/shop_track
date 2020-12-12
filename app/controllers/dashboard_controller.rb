@@ -5,7 +5,7 @@ class DashboardController < ApplicationController
     @net_profit = 0
     SaleItem.joins(:recipe).where.not(recipe_id: nil).each do |sale_item|
       profit_without_account_for_discounts += sale_item.recipe.sale_price
-      @net_profit += sale_item.recipe.profit_margin * sale_item.pos_sum
+      @net_profit += sale_item.pos_sum - sale_item.recipe.total_cost
     end
     @discounts_given = profit_without_account_for_discounts - @net_profit
   end
