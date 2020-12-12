@@ -19,7 +19,7 @@ class Recipe < ApplicationRecord
 
   def total_cost
     total = 0
-    recipe_items.each {|item| total += item.cost}
+    (recipe_items + recipe_combined_items).each {|item| total += item.cost}
     total
   end
 
