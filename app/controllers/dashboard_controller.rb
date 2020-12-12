@@ -3,7 +3,7 @@ class DashboardController < ApplicationController
     @drink_with_total = SaleItem.drinks_with_total
     @net_profit = 0
     SaleItem.joins(:recipe).where.not(recipe_id: nil).each do |sale_item|
-      @net_profit += sale_item.recipe.profit
+      @net_profit += sale_item.recipe.profit_margin * sale_item.pos_sum
     end
   end
 end

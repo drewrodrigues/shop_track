@@ -26,4 +26,8 @@ class Recipe < ApplicationRecord
   def profit
     sale_price - total_cost
   end
+
+  def profit_margin
+    profit / sale_price
+  end
 end
