@@ -8,5 +8,6 @@ class DashboardController < ApplicationController
       @net_profit += sale_item.pos_sum - sale_item.recipe.total_cost
     end
     @discounts_given = profit_without_account_for_discounts - @net_profit
+    @gross_sales_removing_discounts = profit_without_account_for_discounts
   end
 end
