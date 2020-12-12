@@ -52,7 +52,7 @@
         </div>
 
         <div class="ui statistic">
-          <div class="value"><%= ((@recipe.sale_price - @total_cost) / @recipe.sale_price * 100).to_i %>%</div>
+          <div class="value"><%= (profit_margin * 100).to_i %>%</div>
           <div class="label">Margin</div>
         </div>
 
