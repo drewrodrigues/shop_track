@@ -2,11 +2,12 @@
 #
 # Table name: recipes
 #
-#  id         :bigint           not null, primary key
-#  name       :string
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  sale_price :float
+#  id                            :bigint           not null, primary key
+#  name                          :string
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  sale_price                    :float
+#  scraper_sale_text_association :string
 #
 class Recipe < ApplicationRecord
   has_one_attached :photo

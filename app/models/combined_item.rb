@@ -3,12 +3,11 @@
 # Table name: combined_items
 #
 #  id             :bigint           not null, primary key
-#  receipt_id     :bigint           not null
 #  quantity       :float
 #  quantity_scale :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  combined_id_id :bigint
+#  combined_id    :bigint
 #  itemable_type  :string
 #  itemable_id    :bigint
 #

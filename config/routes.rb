@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :marketings
   root 'dashboard#index'
   resources :sale_items
+  get '/unassociated', to: 'sale_items#unassociated'
 
   resources :combineds do
     resources :combined_items
