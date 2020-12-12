@@ -46,7 +46,7 @@
         <div class="ui statistic">
           <div class="value">
             <i aria-hidden="true" class="angle double up icon"></i>
-            <%= (@recipe.sale_price - @total_cost).to_i %>
+            <%= @recipe.profit.to_i %>
           </div>
           <div class="label">Profit</div>
         </div>

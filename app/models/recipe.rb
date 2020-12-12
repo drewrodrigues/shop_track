@@ -22,4 +22,8 @@ class Recipe < ApplicationRecord
     recipe_items.each {|item| total += item.cost}
     total
   end
+
+  def profit
+    sale_price - total_cost
+  end
 end
