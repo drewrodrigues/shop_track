@@ -29,7 +29,7 @@ class RecipeItemsController < ApplicationController
 
     respond_to do |format|
       if @recipe_item.save
-        format.html { redirect_to [@recipe_item.recipe, @recipe_item], notice: 'Recipe item was successfully created.' }
+        format.html { redirect_to @recipe_item.recipe, notice: 'Recipe item was successfully created.' }
         format.json { render :show, status: :created, location: @recipe_item }
       else
         format.html { render :new }
