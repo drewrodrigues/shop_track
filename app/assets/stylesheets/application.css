@@ -173,3 +173,8 @@ ul {
   font-size: 16px;
   margin-top: 50px;
 }
+
+.overview-divider {
+  margin-top: 75px;
+  border: 1px solid #efefef;
+}

@@ -1,10 +1,48 @@
-<h1>Net Profit: <%= @net_profit %></h1>
-<h1>Discounts Given: <%= @discounts_given %></h1>
-<h1>Gross Sales (without considering discounts): <%= @gross_sales_removing_discounts %></h1>
-<h1>Unaccounted for sales: <%= @unaccounted_for_sales %></h1>
-<h1>Total Sales: <%= @total_sales %></h1>
+<h2 class="stats-header">Overview</h2>
+<div class="ui statistics">
+  <div class="statistic">
+    <div class="value">
+      <%= @net_profit %>
+    </div>
+    <div class="label">
+      Net Profit
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= @discounts_given %>
+    </div>
+    <div class="label">
+      Discounts Given
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= @gross_sales_removing_discounts %>
+    </div>
+    <div class="label">
+      Gross Sales (without considering discounts)
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= @unaccounted_for_sales %>
+    </div>
+    <div class="label">
+      Unaccounted For Sales
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">
+      <%= @total_sales %>
+    </div>
+    <div class="label">
+      Total Sales
+    </div>
+  </div>
+</div>
 
-<hr />
+<hr class="overview-divider"/>
 
 <h2 class="stats-header">The last 7 days</h2>
 <div class="ui statistics">
