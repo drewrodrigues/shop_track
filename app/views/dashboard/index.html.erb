@@ -39,11 +39,11 @@
 
   <div class="statistic">
     <div class="value">
-      <%= @stats[:last_7_days][:total_drinks_sold] %>
-      <%= good_or_bad_stat(@stats[:last_7_days][:total_drinks_sold], @stats[:last_30_days][:total_drinks_sold]) %>
+      <%= @stats[:last_7_days][:average_items_sold] %>
+      <%= good_or_bad_stat(@stats[:last_7_days][:average_items_sold], @stats[:last_30_days][:average_items_sold]) %>
     </div>
     <div class="label">
-      Total Drinks Sold
+      Average Items Sold
     </div>
   </div>
 
@@ -63,6 +63,7 @@
   <div class="statistic">
     <div class="value">
       <%= @stats[:last_30_days][:sales_per_day] %>
+      <%= good_or_bad_stat(@stats[:last_30_days][:sales_per_day], @stats[:overall][:sales_per_day]) %>
     </div>
     <div class="label">
       Avg. Sales Per Day
@@ -72,6 +73,7 @@
   <div class="statistic">
     <div class="value">
       <%= @stats[:last_30_days][:avg_drinks_sold_per_day] %>
+      <%= good_or_bad_stat(@stats[:last_30_days][:avg_drinks_sold_per_day], @stats[:overall][:avg_drinks_sold_per_day]) %>
     </div>
     <div class="label">
       Avg. Drinks Sold Per Day
@@ -81,6 +83,7 @@
   <div class="statistic">
     <div class="value">
       <%= @stats[:last_30_days][:average_sale_value] %>
+      <%= good_or_bad_stat(@stats[:last_30_days][:average_sale_value], @stats[:overall][:average_sale_value]) %>
     </div>
     <div class="label">
       Avg Sale Value
@@ -89,16 +92,18 @@
 
   <div class="statistic">
     <div class="value">
-      <%= @stats[:last_30_days][:total_drinks_sold] %>
+      <%= @stats[:last_30_days][:average_items_sold] %>
+      <%= good_or_bad_stat(@stats[:last_30_days][:average_items_sold], @stats[:overall][:average_items_sold]) %>
     </div>
     <div class="label">
-      Total Drinks Sold
+      Avg. Items Sold
     </div>
   </div>
 
   <div class="statistic">
     <div class="value">
       <%= @stats[:last_30_days][:most_drinks_sold] %>
+      <%= good_or_bad_stat(@stats[:last_30_days][:most_drinks_sold], @stats[:overall][:most_drinks_sold]) %>
     </div>
     <div class="label">
       Most Drinks Sold
@@ -110,10 +115,10 @@
 <div class="ui statistics">
   <div class="statistic">
     <div class="value">
-      <%= Sale.sum(:pos_total).to_i %>
+      <%= @stats[:overall][:sales_per_day] %>
     </div>
     <div class="label">
-      Total Sales
+      Avg. Sales Per Day
     </div>
   </div>
   <div class="statistic">
@@ -126,7 +131,7 @@
   </div>
   <div class="statistic">
     <div class="value">
-      <%= Sale.average(:pos_total).to_i %>
+      <%= @stats[:overall][:average_sale_value] %>
     </div>
     <div class="label">
       Avg Sale Value
@@ -134,15 +139,15 @@
   </div>
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.sum(:quantity) %>
+      <%= @stats[:overall][:average_items_sold] %>
     </div>
     <div class="label">
-      Total Drinks Sold
+      Avg. Items Sold
     </div>
   </div>
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.joins(:sale).group_by_day(:pos_datetime).count(:name).values.max %>
+      <%= @stats[:overall][:most_drinks_sold] %>
     </div>
     <div class="label">
       Most Drinks Sold

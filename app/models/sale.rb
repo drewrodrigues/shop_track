@@ -30,6 +30,14 @@ class Sale < ApplicationRecord
     Sale.group_by_week(:pos_datetime).count
   end
 
+  def self.day_count
+    unique_dates = Set.new
+    Sale.distinct(:pos_datetime).pluck(:pos_datetime).each do |date|
+      unique_dates.add(date.to_s.split(' ')[0])
+    end
+    unique_dates.size
+  end
+
   def self.average_sale_during_time
     total_hours = Sale.group_by_day(:pos_datetime).count.length / 8
     sales_per_day = SaleItem.joins(:sale).group_by_hour_of_day(:pos_datetime, series: false).count
