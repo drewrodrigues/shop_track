@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :recurrings
   resources :marketings
   root 'dashboard#index'
   resources :sale_items

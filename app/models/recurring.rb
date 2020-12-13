@@ -1,0 +1,2 @@
+class Recurring < ApplicationRecord
+end

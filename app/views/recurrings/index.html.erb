@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Recurrings</h1>
+<h4>Total <%= @total %></h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Cost</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @recurrings.each do |recurring| %>
+      <tr>
+        <td><%= recurring.name %></td>
+        <td><%= recurring.cost %></td>
+        <td><%= link_to 'Show', recurring %></td>
+        <td><%= link_to 'Edit', edit_recurring_path(recurring) %></td>
+        <td><%= link_to 'Destroy', recurring, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Recurring', new_recurring_path %>
