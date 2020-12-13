@@ -12,7 +12,7 @@
       <%= good_or_bad_stat(@stats[:last_7_days][:sales_per_day], @stats[:last_30_days][:sales_per_day]) %>
     </div>
     <div class="label">
-      Avg. Sales Per Day
+      Avg Sales Per Day
     </div>
   </div>
 
@@ -22,7 +22,7 @@
       <%= good_or_bad_stat(@stats[:last_7_days][:avg_drinks_sold_per_day], @stats[:last_30_days][:avg_drinks_sold_per_day]) %>
     </div>
     <div class="label">
-      Avg. Drinks Sold Per Day
+      Avg Drinks Sold Per Day
       <%=  %>
     </div>
   </div>
@@ -43,7 +43,7 @@
       <%= good_or_bad_stat(@stats[:last_7_days][:average_items_sold], @stats[:last_30_days][:average_items_sold]) %>
     </div>
     <div class="label">
-      Average Items Sold
+      Avg Items Sold
     </div>
   </div>
 
@@ -66,7 +66,7 @@
       <%= good_or_bad_stat(@stats[:last_30_days][:sales_per_day], @stats[:overall][:sales_per_day]) %>
     </div>
     <div class="label">
-      Avg. Sales Per Day
+      Avg Sales Per Day
     </div>
   </div>
 
@@ -76,7 +76,7 @@
       <%= good_or_bad_stat(@stats[:last_30_days][:avg_drinks_sold_per_day], @stats[:overall][:avg_drinks_sold_per_day]) %>
     </div>
     <div class="label">
-      Avg. Drinks Sold Per Day
+      Avg Drinks Sold Per Day
     </div>
   </div>
 
@@ -96,7 +96,7 @@
       <%= good_or_bad_stat(@stats[:last_30_days][:average_items_sold], @stats[:overall][:average_items_sold]) %>
     </div>
     <div class="label">
-      Avg. Items Sold
+      Avg Items Sold
     </div>
   </div>
 
@@ -118,7 +118,7 @@
       <%= @stats[:overall][:sales_per_day] %>
     </div>
     <div class="label">
-      Avg. Sales Per Day
+      Avg Sales Per Day
     </div>
   </div>
   <div class="statistic">
@@ -142,7 +142,7 @@
       <%= @stats[:overall][:average_items_sold] %>
     </div>
     <div class="label">
-      Avg. Items Sold
+      Avg Items Sold
     </div>
   </div>
   <div class="statistic">
@@ -157,7 +157,7 @@
 
 <main class="charts">
   <div class="chart">
-    <h4>Avg. Sales Per Day</h4>
+    <h4>Avg Sales Per Day</h4>
     <%= column_chart SaleItem.average_per_day_of_week %>
   </div>
 
@@ -172,7 +172,7 @@
   </div>
 
   <div class="chart">
-    <h4>Avg. Sales During Time</h4>
+    <h4>Avg Sales During Time</h4>
     <%= column_chart Sale.average_sale_during_time %>
   </div>
 </main>
