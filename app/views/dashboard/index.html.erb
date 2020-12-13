@@ -18,14 +18,6 @@
   </div>
   <div class="statistic">
     <div class="value">
-      <%= @gross_sales_removing_discounts %>
-    </div>
-    <div class="label">
-      Gross Sales (without considering discounts)
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">
       <%= @unaccounted_for_sales %>
     </div>
     <div class="label">
@@ -52,6 +44,24 @@
       Break Even Daily Gross Sales
     </div>
   </div>
+  <div class="statistic">
+    <div class="value">50</div>
+    <div class="label">
+      Average Items Sold
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">300</div>
+    <div class="label">
+      Average Sale Value
+    </div>
+  </div>
+  <div class="statistic">
+    <div class="value">100</div>
+    <div class="label">
+      Most Items Sold
+    </div>
+  </div>
 </div>
 
 <h2 class="stats-header">The last 7 days</h2>
@@ -63,17 +73,6 @@
     </div>
     <div class="label">
       Avg Sales Per Day
-    </div>
-  </div>
-
-  <div class="statistic">
-    <div class="value">
-      <%= @stats[:last_7_days][:avg_drinks_sold_per_day] %>
-      <%= good_or_bad_stat(@stats[:last_7_days][:avg_drinks_sold_per_day], @stats[:last_30_days][:avg_drinks_sold_per_day]) %>
-    </div>
-    <div class="label">
-      Avg Drinks Sold Per Day
-      <%=  %>
     </div>
   </div>
 
@@ -122,16 +121,6 @@
 
   <div class="statistic">
     <div class="value">
-      <%= @stats[:last_30_days][:avg_drinks_sold_per_day] %>
-      <%= good_or_bad_stat(@stats[:last_30_days][:avg_drinks_sold_per_day], @stats[:overall][:avg_drinks_sold_per_day]) %>
-    </div>
-    <div class="label">
-      Avg Drinks Sold Per Day
-    </div>
-  </div>
-
-  <div class="statistic">
-    <div class="value">
       <%= @stats[:last_30_days][:average_sale_value] %>
       <%= good_or_bad_stat(@stats[:last_30_days][:average_sale_value], @stats[:overall][:average_sale_value]) %>
     </div>
@@ -173,14 +162,6 @@
   </div>
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.average_drinks_sold_per_day %>
-    </div>
-    <div class="label">
-      Avg Drinks Sold Per Day
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">
       <%= @stats[:overall][:average_sale_value] %>
     </div>
     <div class="label">
@@ -213,24 +194,6 @@
     </div>
     <div class="label">
       Items Sold
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">50</div>
-    <div class="label">
-      Average Items Sold
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">300</div>
-    <div class="label">
-      Average Sale Value
-    </div>
-  </div>
-  <div class="statistic">
-    <div class="value">100</div>
-    <div class="label">
-      Most Items Sold
     </div>
   </div>
 </div>
