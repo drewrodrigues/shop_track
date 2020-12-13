@@ -17,7 +17,9 @@ class Receipt < ApplicationRecord
 
   delegate :name, to: :kitchen_item, prefix: true
 
-  validates :quantity, presence: true
+  validates :count, presence: true, if: :kitchen_item_receipt?
+  validates :quantity, presence: true, if: :kitchen_item_receipt?
+  validates :quantity_scale, presence: true, if: :kitchen_item_receipt?
   validates :price, presence: true
 
   def cost_per_item
@@ -30,5 +32,11 @@ class Receipt < ApplicationRecord
 
   def name
     kitchen_item.name
+  end
+
+  private
+
+  def kitchen_item_receipt?
+    !kitchen_item.nil?
   end
 end
