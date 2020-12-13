@@ -12,7 +12,7 @@
 #  updated_at      :datetime         not null
 #
 class Receipt < ApplicationRecord
-  belongs_to :kitchen_item
+  belongs_to :kitchen_item, optional: true
 
   delegate :name, to: :kitchen_item, prefix: true
 
