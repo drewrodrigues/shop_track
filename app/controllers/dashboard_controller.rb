@@ -41,6 +41,10 @@ class DashboardController < ApplicationController
       }
     }
 
+    @totals = {
+      items_sold: SaleItem.sum(:quantity)
+    }
+
     @goals = {
       break_even_daily_sales: (Recurring.sum(:cost) / 30 * (1 + @product_profit_margin)).to_i
     }
