@@ -21,12 +21,6 @@
     <%= form.text_field :quantity %>
   </div>
 
-  <div class="field">
-    <%= form.label :quantity_scale %>
-    <%= form.select :quantity_scale, quantity_scale_options %>
-  </div>
-
-
   <%= form.hidden_field :recipe_id, value: @recipe.id %>
 
   <div class="actions">
