@@ -22,6 +22,7 @@ class Receipt < ApplicationRecord
   validates :count, presence: true, if: :kitchen_item_receipt?
   validates :quantity, presence: true, if: :kitchen_item_receipt?
   validates :quantity_scale, presence: true, if: :kitchen_item_receipt?
+  validates :detail, presence: true, unless: :kitchen_item_receipt?
   validates :price, presence: true
 
   def cost_per_item
