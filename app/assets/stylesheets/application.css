@@ -102,18 +102,44 @@ input:checked + img {
 }
 
 .ui.statistic>.value, .ui.statistics .statistic>.value {
-  font-size: 20px;
+  font-size: 24px !important;
+}
+
+.ui.statistic>.label, .ui.statistics .statistic>.label {
+  color: #aaa;
 }
 
 .ui.statistics:first-child {
   margin: 50px 0;
 }
 
+.ui.statistics {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .ui.statistics>.statistic {
-  width: 20%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background: #efefef;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 18%;
+  height: 100px;
   margin: 0;
-  padding: 0;
+  padding: 10px;
   font-size: 12px;
+}
+
+.ui .statistics::after {
+  display: none;
+  content: '';
+  height: 0;
+  clear: none;
+  overflow: hidden;
+  visibility: hidden;
 }
 
 ul {

@@ -8,7 +8,7 @@
 <div class="ui statistics">
   <div class="statistic">
     <div class="value">
-      <%= Sale.amount_in_last_days(7).to_i %>
+      <%= @stats[:last_7_days][:total_sales] %>
     </div>
     <div class="label">
       Total Sales
@@ -17,16 +17,26 @@
 
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.average_per_day_in_last_days(7) %>
+      <%= @stats[:last_7_days][:avg_drinks_sold_per_day] %>
     </div>
     <div class="label">
-      Average Drinks Sold Per Day
+      Avg. Drinks Sold Per Day
+      <%=  %>
     </div>
   </div>
 
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.joins(:sale).where('pos_datetime > ?', 7.days.ago).sum(:quantity) %>
+      <%= @stats[:last_7_days][:average_sale_value] %>
+    </div>
+    <div class="label">
+      Avg Sale Value
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= @stats[:last_7_days][:total_drinks_sold] %>
     </div>
     <div class="label">
       Total Drinks Sold
@@ -35,7 +45,7 @@
 
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.joins(:sale).group_by_day(:pos_datetime).where('pos_datetime > ?', 7.days.ago).count(:name).values.max %>
+      <%= @stats[:last_7_days][:most_drinks_sold] %>
     </div>
     <div class="label">
       Most Drinks Sold
@@ -47,7 +57,7 @@
 <div class="ui statistics">
   <div class="statistic">
     <div class="value">
-      <%= Sale.amount_in_last_days(30).to_i %>
+      <%= @stats[:last_30_days][:total_sales] %>
     </div>
     <div class="label">
       Total Sales
@@ -56,16 +66,25 @@
 
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.average_per_day_in_last_days(30) %>
+      <%= @stats[:last_30_days][:avg_drinks_sold_per_day] %>
     </div>
     <div class="label">
-      Average Drinks Sold Per Day
+      Avg. Drinks Sold Per Day
     </div>
   </div>
 
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.joins(:sale).where('pos_datetime > ?', 30.days.ago).sum(:quantity) %>
+      <%= @stats[:last_30_days][:average_sale_value] %>
+    </div>
+    <div class="label">
+      Avg Sale Value
+    </div>
+  </div>
+
+  <div class="statistic">
+    <div class="value">
+      <%= @stats[:last_30_days][:total_drinks_sold] %>
     </div>
     <div class="label">
       Total Drinks Sold
@@ -74,7 +93,7 @@
 
   <div class="statistic">
     <div class="value">
-      <%= SaleItem.joins(:sale).group_by_day(:pos_datetime).where('pos_datetime > ?', 30.days.ago).count(:name).values.max %>
+      <%= @stats[:last_30_days][:most_drinks_sold] %>
     </div>
     <div class="label">
       Most Drinks Sold
@@ -128,7 +147,7 @@
 
 <main class="charts">
   <div class="chart">
-    <h4>Average Sales Per Day</h4>
+    <h4>Avg. Sales Per Day</h4>
     <%= column_chart SaleItem.average_per_day_of_week %>
   </div>
 
@@ -143,7 +162,7 @@
   </div>
 
   <div class="chart">
-    <h4>Average Sales During Time</h4>
+    <h4>Avg. Sales During Time</h4>
     <%= column_chart Sale.average_sale_during_time %>
   </div>
 </main>
