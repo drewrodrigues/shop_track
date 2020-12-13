@@ -28,7 +28,7 @@
 
   <div class="field">
     <%= form.label :quantity_scale %>
-    <%= form.text_field :quantity_scale %>
+    <%= form.select :quantity_scale, quantity_scale_options %>
   </div>
 
   <%= form.hidden_field :combined_id, value: @combined.id %>
