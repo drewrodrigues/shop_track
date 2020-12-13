@@ -1,6 +1,6 @@
 module ApplicationHelper
   def quantity_scale_options
-    ['ml', 'grams']
+    ['ml', 'gram', 'piece']
   end
 
   def options_for_receipt_and_kitchen_item
