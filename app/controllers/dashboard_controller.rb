@@ -13,14 +13,14 @@ class DashboardController < ApplicationController
     @gross_sales_removing_discounts = profit_without_account_for_discounts
     @stats = {
       last_7_days: {
-        total_sales: Sale.amount_in_last_days(7).to_i,
+        sales_per_day: Sale.amount_in_last_days(7).to_i / 7,
         average_sale_value: Sale.where('pos_datetime > ?', 7.days.ago).average(:pos_total).to_i,
         avg_drinks_sold_per_day: SaleItem.average_per_day_in_last_days(7),
         total_drinks_sold:  SaleItem.joins(:sale).where('pos_datetime > ?', 7.days.ago).sum(:quantity),
         most_drinks_sold: SaleItem.joins(:sale).group_by_day(:pos_datetime).where('pos_datetime > ?', 7.days.ago).count(:name).values.max,
       },
       last_30_days: {
-        total_sales: Sale.amount_in_last_days(30).to_i,
+        sales_per_day: Sale.amount_in_last_days(30).to_i / 30,
         average_sale_value: Sale.where('pos_datetime > ?', 30.days.ago).average(:pos_total).to_i,
         avg_drinks_sold_per_day: SaleItem.average_per_day_in_last_days(30),
         total_drinks_sold:  SaleItem.joins(:sale).where('pos_datetime > ?', 30.days.ago).sum(:quantity),

@@ -18,4 +18,12 @@ module ApplicationHelper
   def edit_path_for_nested_resource(parent, child)
     "/#{parent.class.table_name}/#{parent.id}/#{child.class.table_name}/#{child.id}/edit"
   end
+
+  def good_or_bad_stat(this_stat, comparison_stat)
+    if this_stat > comparison_stat
+      content_tag :i, "", class: "arrow circle up icon good"
+    elsif this_stat < comparison_stat
+      content_tag :i, "", class: "arrow circle down icon bad"
+    end
+  end
 end
