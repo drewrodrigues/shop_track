@@ -13,7 +13,7 @@ class DashboardController < ApplicationController
     @discounts_given = (profit_without_accounting_for_discounts - @net_profit).to_i
     @gross_sales_removing_discounts = profit_without_accounting_for_discounts.to_i
     @unaccounted_for_sales = SaleItem.where(recipe_id: nil).sum(:pos_sum).to_i
-    @total_sales = SaleItem.sum(:pos_sum).to_i
+    @total_sales = Sale.sum(:pos_total).to_i
 
     @stats = {
       last_7_days: {
