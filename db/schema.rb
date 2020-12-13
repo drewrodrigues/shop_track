@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_110625) do
+ActiveRecord::Schema.define(version: 2020_12_13_151626) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 2020_12_13_110625) do
     t.string "quantity_scale"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "date"
     t.index ["kitchen_item_id"], name: "index_receipts_on_kitchen_item_id"
   end
 
@@ -106,6 +107,13 @@ ActiveRecord::Schema.define(version: 2020_12_13_110625) do
     t.datetime "updated_at", precision: 6, null: false
     t.float "sale_price"
     t.string "scraper_sale_text_association"
+  end
+
+  create_table "recurrings", force: :cascade do |t|
+    t.string "name"
+    t.integer "cost"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "sale_items", force: :cascade do |t|
