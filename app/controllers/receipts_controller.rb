@@ -54,6 +54,6 @@ class ReceiptsController < ApplicationController
   end
 
   def receipt_params
-    params.require(:receipt).permit(:kitchen_item_id, :count, :quantity, :price, :quantity_scale, :date, :category_id)
+    params.require(:receipt).permit(:kitchen_item_id, :count, :quantity, :price, :quantity_scale, :date, :category_id, :detail)
   end
 end

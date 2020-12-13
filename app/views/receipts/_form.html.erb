@@ -23,6 +23,12 @@
   </div>
 
   <div class="field">
+    <span>(Only required for non-kitchen items)</span>
+    <%= form.label :detail %>
+    <%= form.text :detail %>
+  </div>
+
+  <div class="field">
     <%= form.label :category_id %>
     <%= form.select :category_id, options_from_collection_for_select(Category.all, :id, :name, receipt.category_id), required: true, prompt: "Select a category"%>
   </div>
