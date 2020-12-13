@@ -13,8 +13,18 @@
   <% end %>
 
   <div class="field">
+    <%= form.label :date %>
+    <%= form.date_field :date %>
+  </div>
+
+  <div class="field">
     <%= form.label :kitchen_item_id %>
     <%= form.select :kitchen_item_id, options_from_collection_for_select(KitchenItem.all, :id, :name, receipt.kitchen_item_id), required: true, prompt: "Select an item" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :category_id %>
+    <%= form.select :category_id, options_from_collection_for_select(Category.all, :id, :name, receipt.category_id), required: true, prompt: "Select a category"%>
   </div>
 
   <div class="field">
@@ -34,11 +44,6 @@
   <div class="field">
     <%= form.label :total_price, for: :receipt_price %>
     <%= form.text_field :price %>
-  </div>
-
-  <div class="field">
-    <%= form.label :date %>
-    <%= form.date_field :date %>
   </div>
 
   <div class="actions">

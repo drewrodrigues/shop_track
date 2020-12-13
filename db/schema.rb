@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_13_151626) do
+ActiveRecord::Schema.define(version: 2020_12_13_152654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,12 @@ ActiveRecord::Schema.define(version: 2020_12_13_151626) do
     t.string "checksum", null: false
     t.datetime "created_at", null: false
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "combined_items", force: :cascade do |t|
@@ -78,6 +84,8 @@ ActiveRecord::Schema.define(version: 2020_12_13_151626) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.date "date"
+    t.bigint "category_id"
+    t.index ["category_id"], name: "index_receipts_on_category_id"
     t.index ["kitchen_item_id"], name: "index_receipts_on_kitchen_item_id"
   end
 

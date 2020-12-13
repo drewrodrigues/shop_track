@@ -13,6 +13,7 @@
 #
 class Receipt < ApplicationRecord
   belongs_to :kitchen_item, optional: true
+  belongs_to :category
 
   delegate :name, to: :kitchen_item, prefix: true
 
