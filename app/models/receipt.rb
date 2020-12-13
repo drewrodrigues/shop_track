@@ -10,6 +10,8 @@
 #  quantity_scale  :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  date            :date
+#  category_id     :bigint
 #
 class Receipt < ApplicationRecord
   belongs_to :kitchen_item, optional: true
