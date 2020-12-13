@@ -10,10 +10,10 @@
   </div>
   <div class="statistic">
     <div class="value">
-      <%= @discounts_given %>
+      <%= (@product_profit_margin * 100).to_i %>%
     </div>
     <div class="label">
-      Discounts Given
+      Profit Margin
     </div>
   </div>
   <div class="statistic">
@@ -42,7 +42,17 @@
   </div>
 </div>
 
-<hr class="overview-divider"/>
+<h2 class="stats-header">Goals</h2>
+<div class="ui statistics">
+  <div class="statistic">
+    <div class="value">
+      <%= @goals[:break_even_daily_sales] %>
+    </div>
+    <div class="label">
+      Break Even Daily Gross Sales
+    </div>
+  </div>
+</div>
 
 <h2 class="stats-header">The last 7 days</h2>
 <div class="ui statistics">
