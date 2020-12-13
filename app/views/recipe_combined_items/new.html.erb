@@ -2,4 +2,4 @@
 
 <%= render 'form', recipe_combined_item: @recipe_combined_item %>
 
-<%= link_to 'Back', @recipe_combined_item.recipe %>
+<%= link_to 'Back', @recipe_combined_item.recipe || recipes_path %>
