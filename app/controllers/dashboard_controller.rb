@@ -6,7 +6,7 @@ class DashboardController < ApplicationController
 
     SaleItem.includes(:recipe, recipe: [:recipe_items, :recipe_combined_items]).where.not(recipe_id: nil).each do |sale_item|
       profit_without_accounting_for_discounts += sale_item.recipe.sale_price
-      @net_profit += sale_item.pos_sum - sale_item.recipe.total_cost
+      @net_profit += sale_item.pos_sum - (sale_item.recipe.total_cost * sale_item.quantity)
     end
 
     @net_profit = @net_profit.to_i
