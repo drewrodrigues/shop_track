@@ -14,7 +14,7 @@ class Scraper
     logger.info "Started scraper"
 
     arguments = %w[--headless --window-size=1920,1080 --disable-dev-shm-usage]
-    @driver = Selenium::WebDriver.for(:chrome, args: arguments)
+    @driver = Selenium::WebDriver.for(:chrome)
     already_created_checks = Sale.pluck(:pos_fiscal_number)
     login
     go_to_checks
@@ -132,22 +132,23 @@ class Scraper
 
     products_rows = (left_constraint && right_constraint) ? products_rows[left_constraint...right_constraint] : nil
 
-    checkbox_is_trash = products_rows&.any? {|p| p[/^\w+ .* [0-9]+\.[0-9]+ [0-9]+\.[0-9]+$/]}
-    parsed_products = []
-    if checkbox_is_trash
-      logger.info "Checkbox is trash, joining multiple lines"
-      until products_rows.empty?
-        logger.info "-- line"
-        parsed_products << products_rows.shift(2).join(' ')
-      end
-    else
-      parsed_products = products_rows
-    end
+    # checkbox_is_trash = products_rows&.any? {|p| p[/^\w+ .* [0-9]+\.[0-9]+ [0-9]+\.[0-9]+$/]}
+    # parsed_products = []
+    # if checkbox_is_trash
+    #   byebug
+    #   logger.info "Checkbox is trash, joining multiple lines"
+    #   until products_rows.empty?
+    #     logger.info "-- line"
+    #     parsed_products << products_rows.shift(2).join(' ')
+    #   end
+    # else
+    #   parsed_products = products_rows
+    # end
 
     logger.info "---parsed_products---"
-    logger.info parsed_products
+    logger.info products_rows
     logger.info "\n\n\n\n"
-    (parsed_products.nil? || parsed_products.empty?) ? nil : parsed_products
+    (products_rows.nil? || products_rows.empty?) ? nil : products_rows
   end
 
   def close_modal
