@@ -58,12 +58,16 @@ class Scraper
   end
 
   def iterate_over_checks(already_saved_checks)
+    concurrent_already_saved_checks_count = 0
+    exit if concurrent_already_saved_checks_count > 5
+
     check_rows = driver.find_elements(class: 't-orm-item')
     check_rows.each_with_index do |row, i|
       cells = row.find_elements(tag_name: 'td')
       _type, datetime, fiscal_number, total = cells.map(&:text)
       if already_saved_checks.include?(fiscal_number) || _type === 'Службова видача'
         logger.info ">> Skipping, already saved: #{fiscal_number} - #{_type}"
+        concurrent_already_saved_checks_count += 1
         next
       end
       scroll_to_row(i)
