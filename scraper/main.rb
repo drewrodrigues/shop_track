@@ -2,6 +2,7 @@ require "selenium-webdriver"
 
 require_relative '../config/environment'
 require_relative './product_parser'
+require_relative './create_assocations'
 
 class Scraper
   attr_reader :logger
@@ -27,6 +28,7 @@ class Scraper
       go_to_next_page
     end
   rescue Selenium::WebDriver::Error::ElementNotInteractableError => e
+    CreateAssociations.new
     puts e
     driver.save_screenshot("tmp/failure to interact.png")
     logger.error e
@@ -59,7 +61,7 @@ class Scraper
 
   def iterate_over_checks(already_saved_checks)
     concurrent_already_saved_checks_count = 0
-    exit if concurrent_already_saved_checks_count > 5
+    raise 'Done scraping' if concurrent_already_saved_checks_count > 5
 
     check_rows = driver.find_elements(class: 't-orm-item')
     check_rows.each_with_index do |row, i|
