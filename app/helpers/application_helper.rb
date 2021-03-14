@@ -20,6 +20,7 @@ module ApplicationHelper
   end
 
   def good_or_bad_stat(this_stat, comparison_stat)
+    return nil unless this_stat && comparison_stat
     if this_stat > comparison_stat
       content_tag :i, "", class: "arrow circle up icon good"
     elsif this_stat < comparison_stat
